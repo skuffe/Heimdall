@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCollectionClient", "Dat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCollectionHost", "DataCollectionHost\DataCollectionHost.csproj", "{81592854-6289-498F-B271-1C420448E89C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontEnd", "FrontEnd\FrontEnd.csproj", "{D137F4B2-E116-4DE8-889A-0870E7854E2B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,16 @@ Global
 		{81592854-6289-498F-B271-1C420448E89C}.Release|Mixed Platforms.Build.0 = Release|x86
 		{81592854-6289-498F-B271-1C420448E89C}.Release|x86.ActiveCfg = Release|x86
 		{81592854-6289-498F-B271-1C420448E89C}.Release|x86.Build.0 = Release|x86
+		{D137F4B2-E116-4DE8-889A-0870E7854E2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D137F4B2-E116-4DE8-889A-0870E7854E2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D137F4B2-E116-4DE8-889A-0870E7854E2B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D137F4B2-E116-4DE8-889A-0870E7854E2B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D137F4B2-E116-4DE8-889A-0870E7854E2B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D137F4B2-E116-4DE8-889A-0870E7854E2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D137F4B2-E116-4DE8-889A-0870E7854E2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D137F4B2-E116-4DE8-889A-0870E7854E2B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D137F4B2-E116-4DE8-889A-0870E7854E2B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D137F4B2-E116-4DE8-889A-0870E7854E2B}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
