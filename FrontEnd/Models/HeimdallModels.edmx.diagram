@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="57f55fcb7a7a498788d082135f46e257" Name="Diagram1">
+        <EntityTypeShape EntityType="HeimdallModel.tbl_ClientInfo" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HeimdallModel.tbl_Clients" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HeimdallModel.tbl_ClientTypes" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HeimdallModel.tbl_Groups" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HeimdallModel.tbl_InterfaceInfo" Width="1.5" PointX="7.5" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HeimdallModel.tbl_Interfaces" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HeimdallModel.tbl_Processes" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HeimdallModel.tbl_ProcessInfo" Width="1.5" PointX="7.5" PointY="8.5" IsExpanded="true" />
+        <AssociationConnector Association="HeimdallModel.FK_tbl_ClientInfo_tbl_Clients" ManuallyRouted="false" />
+        <AssociationConnector Association="HeimdallModel.FK_tbl_Clients_tbl_ClientTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="HeimdallModel.FK_tbl_Clients_tbl_Groups" ManuallyRouted="false" />
+        <AssociationConnector Association="HeimdallModel.FK_tbl_Interfaces_tbl_Clients" ManuallyRouted="false" />
+        <AssociationConnector Association="HeimdallModel.FK_tbl_Processes_tbl_Clients" ManuallyRouted="false" />
+        <AssociationConnector Association="HeimdallModel.FK_tbl_InterfaceInfo_tbl_Interfaces" ManuallyRouted="false" />
+        <AssociationConnector Association="HeimdallModel.FK_tbl_ProcessInfo_tbl_Processes" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
