@@ -1,0 +1,50 @@
+﻿@model FrontEnd.Models.tbl_Clients
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>tbl_Clients</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ClientID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ClientID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.tbl_Groups.GroupName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.tbl_Groups.GroupName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.tbl_ClientTypes.TypeName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.tbl_ClientTypes.TypeName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.HostName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.HostName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.IPAddress)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IPAddress)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

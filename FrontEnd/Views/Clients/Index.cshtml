@@ -1,0 +1,57 @@
+﻿@model IEnumerable<FrontEnd.Models.tbl_Clients>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ClientID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tbl_Groups.GroupName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tbl_ClientTypes.TypeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HostName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IPAddress)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClientID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tbl_Groups.GroupName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tbl_ClientTypes.TypeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HostName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IPAddress)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ClientID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ClientID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ClientID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,24 +1,67 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IEnumerable<FrontEnd.Models.tbl_Clients>
+@{
+    ViewBag.Title = "Dashboard";
+    bool IsResponding = false;
 }
 @section featured {
     <section class="featured">
         <div class="content-wrapper">
             <hgroup class="title">
-                <h1>@ViewBag.Title.</h1>
-                <h2>@ViewBag.Message</h2>
+                <h1>@ViewBag.Title</h1>
             </hgroup>
-            <p>
-                To learn more about ASP.NET MVC visit
-                <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
-                The page features <mark>videos, tutorials, and samples</mark> to help you get the most from ASP.NET MVC.
-                If you have any questions about ASP.NET MVC visit
-                <a href="http://forums.asp.net/1146.aspx/1?MVC" title="ASP.NET MVC Forum">our forums</a>.
-            </p>
+            <hgroup class="title">
+                <h4>Statistics: Total Clients: @ViewBag.ClientCount</h4>
+            </hgroup>
         </div>
     </section>
 }
-<h3>We suggest the following:</h3>
+<h3>Alerts</h3>
+
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ClientID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GroupID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClientTypeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HostName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IPAddress)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @if (item.tbl_ClientInfo.Count() > 0 && !(bool)item.tbl_ClientInfo.Last().IsResponding) { Html.DisplayFor(modelItem => item.ClientID); IsResponding = false; }
+        </td>
+        <td>
+            @if (!IsResponding) { Html.DisplayFor(modelItem => item.GroupID); }
+        </td>
+        <td>
+            @if (!IsResponding) { Html.DisplayFor(modelItem => item.ClientTypeID); }
+        </td>
+        <td>
+            @if (!IsResponding) { Html.DisplayFor(modelItem => item.HostName); }
+        </td>
+        <td>
+            @if (!IsResponding) { Html.DisplayFor(modelItem => item.IPAddress); }
+        </td>
+        <td>
+            @if (!IsResponding) { Html.ActionLink("Details", "Details", new { id = item.ClientID }); }
+        </td>
+    </tr>
+}
+
+</table>
+
 <ol class="round">
     <li class="one">
         <h5>Getting Started</h5>

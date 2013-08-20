@@ -1,0 +1,36 @@
+﻿@model FrontEnd.Models.tbl_Interfaces
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>tbl_Interfaces</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.InterfaceID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.InterfaceID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.tbl_Clients.HostName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.tbl_Clients.HostName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.InterfaceName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.InterfaceName)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

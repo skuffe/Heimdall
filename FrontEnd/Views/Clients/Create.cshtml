@@ -1,0 +1,68 @@
+﻿@model FrontEnd.Models.tbl_Clients
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>tbl_Clients</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ClientID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ClientID)
+            @Html.ValidationMessageFor(model => model.ClientID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.GroupID, "tbl_Groups")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("GroupID", String.Empty)
+            @Html.ValidationMessageFor(model => model.GroupID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ClientTypeID, "tbl_ClientTypes")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("ClientTypeID", String.Empty)
+            @Html.ValidationMessageFor(model => model.ClientTypeID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.HostName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.HostName)
+            @Html.ValidationMessageFor(model => model.HostName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IPAddress)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IPAddress)
+            @Html.ValidationMessageFor(model => model.IPAddress)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

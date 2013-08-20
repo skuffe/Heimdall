@@ -9,7 +9,7 @@ using FrontEnd.Models;
 
 namespace FrontEnd.Controllers
 {
-    [Authorize(Roles = "AUH\\Heimdall_admin")]
+    //[Authorize(Roles = "AUH\\Heimdall_admin")]
     public class ClientTypesController : Controller
     {
         private HeimdallContext db = new HeimdallContext();
