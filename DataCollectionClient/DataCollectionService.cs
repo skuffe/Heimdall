@@ -109,7 +109,7 @@ namespace DataCollectionClient
             {
                 uptime.NextValue();       //Call this an extra time before reading its value
                 TimeSpan span = TimeSpan.FromSeconds(uptime.NextValue());
-
+                
                 return span.Days + " day(s) " + span.Hours.ToString().PadLeft(2, '0') + ":" +
                     span.Minutes.ToString().PadLeft(2, '0') + ":" + span.Seconds.ToString().PadLeft(2, '0');
             }
