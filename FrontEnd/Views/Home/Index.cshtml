@@ -1,0 +1,20 @@
+﻿@model IEnumerable<FrontEnd.Models.tbl_Clients>
+@{
+    ViewBag.Title = "Dashboard";
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title</h1>
+            </hgroup>
+            <hgroup class="title">
+                <h4>Statistics:</h4>
+                <h4>Total Clients: @ViewBag.ClientCount</h4>
+                <h4>TimeStamp: @ViewBag.Now</h4>
+            </hgroup>
+        </div>
+    </section>
+}
+<h2>Alerts</h2>
+@Html.Partial("_AlertPartial", Model)

@@ -1,0 +1,100 @@
+﻿@model FrontEnd.Models.tbl_ClientInfo
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>tbl_ClientInfo</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ClientID, "tbl_Clients")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("ClientID", String.Empty)
+            @Html.ValidationMessageFor(model => model.ClientID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TimeStamp)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TimeStamp)
+            @Html.ValidationMessageFor(model => model.TimeStamp)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.OSVersion)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.OSVersion)
+            @Html.ValidationMessageFor(model => model.OSVersion)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DiskSpace)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DiskSpace)
+            @Html.ValidationMessageFor(model => model.DiskSpace)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UpTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.UpTime)
+            @Html.ValidationMessageFor(model => model.UpTime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RAM)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.RAM)
+            @Html.ValidationMessageFor(model => model.RAM)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CPU)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CPU)
+            @Html.ValidationMessageFor(model => model.CPU)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Ping)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Ping)
+            @Html.ValidationMessageFor(model => model.Ping)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IsResponding)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IsResponding)
+            @Html.ValidationMessageFor(model => model.IsResponding)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,89 @@
+﻿@model FrontEnd.Models.tbl_ClientInfo
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>tbl_ClientInfo</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ClientInfoID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ClientInfoID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.tbl_Clients.HostName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.tbl_Clients.HostName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TimeStamp)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TimeStamp)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.OSVersion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.OSVersion)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DiskSpace)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DiskSpace)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UpTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UpTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.RAM)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.RAM)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CPU)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CPU)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Ping)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Ping)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.IsResponding)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsResponding)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
