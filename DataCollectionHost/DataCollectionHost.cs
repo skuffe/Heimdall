@@ -34,8 +34,7 @@ namespace DataCollectionHost
 
         protected override void OnStart(string[] args)
         {
-            //Create an array of all the addresses and make endpoints/channels
-            //Create a thread for each host
+            //Creates the SystemInfo collector thread
             SysInfoCollector infoCollector = new SysInfoCollector(sqlConn);
             Thread thread = new Thread(infoCollector.ThreadWrapper);
 

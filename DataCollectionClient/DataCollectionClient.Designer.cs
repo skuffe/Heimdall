@@ -1,6 +1,6 @@
 ﻿namespace DataCollectionClient
 {
-    partial class DataCollectionServicehost
+    partial class DataCollectionClient
     {
         /// <summary> 
         /// Required designer variable.

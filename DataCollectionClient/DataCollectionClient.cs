@@ -10,14 +10,14 @@ using System.ServiceModel;
 
 namespace DataCollectionClient
 {
-    partial class DataCollectionServicehost : ServiceBase
+    partial class DataCollectionClient : ServiceBase
     {
         ServiceHost serviceHost = null;
 
-        public DataCollectionServicehost()
+        public DataCollectionClient()
         {
             InitializeComponent();
-            this.ServiceName = "DataCollectionService";
+            this.ServiceName = "DataCollectionClient";
             this.EventLog.Log = "Application";
 
             this.CanPauseAndContinue = false;

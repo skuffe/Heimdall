@@ -16,7 +16,7 @@ namespace DataCollectionClient
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[] 
 			{ 
-				new DataCollectionServicehost()
+				new DataCollectionClient()
 			};
             ServiceBase.Run(ServicesToRun);
         }

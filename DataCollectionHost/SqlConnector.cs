@@ -134,7 +134,7 @@ namespace DataCollectionHost
             }
         }
 
-        public bool executeQuery(string query)
+        public bool executeGetQuery(string query)
         {
             //Executes a specified query against the associated connection.
             try
@@ -146,6 +146,37 @@ namespace DataCollectionHost
             }
             catch
             {
+                return false;
+            }
+        }
+
+        public bool executeInsertQuery(string query, Dictionary<string, string> dictionary)
+        {
+            //Executes a specified query against the associated connection.
+            try
+            {
+                DateTime time;
+                SqlCommand cmd = new SqlCommand();
+
+                cmd.CommandText = query;
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = db_conn;
+
+                for (int i = 0; i < dictionary.Count; i++)
+                {
+                    if (DateTime.TryParse(dictionary["@" + i], out time))
+                        cmd.Parameters.AddWithValue("@" + i, time);
+                    else
+                        cmd.Parameters.AddWithValue("@" + i, dictionary["@" + i]);
+                }
+
+                cmd.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
                 return false;
             }
         }
