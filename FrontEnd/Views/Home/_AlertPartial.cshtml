@@ -1,0 +1,62 @@
+﻿@model IEnumerable<FrontEnd.Models.tbl_Clients>
+
+<script type="text/javascript">
+setInterval(function () {
+    $.post('@Url.Action("Index")', function (data) {
+            $('#AlertDiv').html(data);
+        }
+    );
+}, 20000);
+</script>
+<div id="AlertDiv">
+
+@if (ViewBag.ErrorCount > 0) {
+<h4>Clients currently not responding</h4>
+    
+<table>
+    <tr>
+        <th>
+            Group
+        </th>
+        <th>
+            Type
+        </th>
+        <th>
+            Hostname
+        </th>
+        <th>
+            IP Address
+        </th>
+        <th>
+            DownTime
+        </th>
+    </tr>
+
+
+@foreach (var item in Model) { if (item.tbl_ClientInfo.Count > 0 && item.tbl_ClientInfo.LastOrDefault().IsResponding == false) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.tbl_Groups.GroupName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tbl_ClientTypes.TypeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HostName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IPAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DownTime)
+        </td>
+    </tr>
+    }
+}
+
+</table>
+} else {
+<h4>All is well :-) Have a nice day!</h4>    
+}
+
+</div>

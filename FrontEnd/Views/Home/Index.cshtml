@@ -1,7 +1,6 @@
 ﻿@model IEnumerable<FrontEnd.Models.tbl_Clients>
 @{
     ViewBag.Title = "Dashboard";
-    bool IsResponding = false;
 }
 @section featured {
     <section class="featured">
@@ -10,79 +9,12 @@
                 <h1>@ViewBag.Title</h1>
             </hgroup>
             <hgroup class="title">
-                <h4>Statistics: Total Clients: @ViewBag.ClientCount</h4>
+                <h4>Statistics:</h4>
+                <h4>Total Clients: @ViewBag.ClientCount</h4>
+                <h4>TimeStamp: @ViewBag.Now</h4>
             </hgroup>
         </div>
     </section>
 }
-<h3>Alerts</h3>
-
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ClientID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GroupID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ClientTypeID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HostName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IPAddress)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @if (item.tbl_ClientInfo.Count() > 0 && !(bool)item.tbl_ClientInfo.Last().IsResponding) { Html.DisplayFor(modelItem => item.ClientID); IsResponding = false; }
-        </td>
-        <td>
-            @if (!IsResponding) { Html.DisplayFor(modelItem => item.GroupID); }
-        </td>
-        <td>
-            @if (!IsResponding) { Html.DisplayFor(modelItem => item.ClientTypeID); }
-        </td>
-        <td>
-            @if (!IsResponding) { Html.DisplayFor(modelItem => item.HostName); }
-        </td>
-        <td>
-            @if (!IsResponding) { Html.DisplayFor(modelItem => item.IPAddress); }
-        </td>
-        <td>
-            @if (!IsResponding) { Html.ActionLink("Details", "Details", new { id = item.ClientID }); }
-        </td>
-    </tr>
-}
-
-</table>
-
-<ol class="round">
-    <li class="one">
-        <h5>Getting Started</h5>
-        ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-        enables a clean separation of concerns and that gives you full control over markup
-        for enjoyable, agile development. ASP.NET MVC includes many features that enable
-        fast, TDD-friendly development for creating sophisticated applications that use
-        the latest web standards.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245151">Learn more…</a>
-    </li>
-
-    <li class="two">
-        <h5>Add NuGet packages and jump-start your coding</h5>
-        NuGet makes it easy to install and update free libraries and tools.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245153">Learn more…</a>
-    </li>
-
-    <li class="three">
-        <h5>Find Web Hosting</h5>
-        You can easily find a web hosting company that offers the right mix of features
-        and price for your applications.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245157">Learn more…</a>
-    </li>
-</ol>
+<h2>Alerts</h2>
+@Html.Partial("_AlertPartial", Model)

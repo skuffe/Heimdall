@@ -11,18 +11,23 @@ namespace FrontEnd.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class tbl_ClientInfo
     {
         public int ClientInfoID { get; set; }
         public Nullable<int> ClientID { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> TimeStamp { get; set; }
+
         public string OSVersion { get; set; }
         public string DiskSpace { get; set; }
         public Nullable<int> UpTime { get; set; }
         public string RAM { get; set; }
-        public Nullable<int> CPU { get; set; }
-        public Nullable<int> Ping { get; set; }
+        public string CPU { get; set; }
+        public string Ping { get; set; }
         public Nullable<bool> IsResponding { get; set; }
     
         public virtual tbl_Clients tbl_Clients { get; set; }

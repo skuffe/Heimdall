@@ -11,7 +11,6 @@ namespace FrontEnd.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class tbl_Clients
     {
@@ -22,12 +21,12 @@ namespace FrontEnd.Models
             this.tbl_Processes = new HashSet<tbl_Processes>();
         }
     
-        [Key]
         public int ClientID { get; set; }
         public Nullable<int> GroupID { get; set; }
         public Nullable<int> ClientTypeID { get; set; }
         public string HostName { get; set; }
         public string IPAddress { get; set; }
+        public string DownTime { get; set; }
     
         public virtual ICollection<tbl_ClientInfo> tbl_ClientInfo { get; set; }
         public virtual tbl_ClientTypes tbl_ClientTypes { get; set; }

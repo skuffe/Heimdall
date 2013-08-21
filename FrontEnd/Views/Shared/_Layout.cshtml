@@ -29,6 +29,7 @@
         <div id="body">
             @RenderSection("featured", required: false)
             <section class="content-wrapper main-content clear-fix">
+                @RenderSection("alerts", required: false)
                 @RenderBody()
             </section>
         </div>

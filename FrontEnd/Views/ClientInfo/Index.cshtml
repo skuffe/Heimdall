@@ -1,0 +1,87 @@
+﻿@model IEnumerable<FrontEnd.Models.tbl_ClientInfo>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ClientInfoID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tbl_Clients.HostName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeStamp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OSVersion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiskSpace)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RAM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CPU)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ping)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsResponding)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClientInfoID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tbl_Clients.HostName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeStamp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OSVersion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiskSpace)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RAM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CPU)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ping)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsResponding)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

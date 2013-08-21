@@ -9,34 +9,34 @@ using FrontEnd.Models;
 
 namespace FrontEnd.Controllers
 {
-    public class InterfacesController : Controller
+    public class ClientInfoController : Controller
     {
         private HeimdallContext db = new HeimdallContext();
 
         //
-        // GET: /Interfaces/
+        // GET: /ClientInfo/
 
         public ActionResult Index()
         {
-            var tbl_interfaces = db.tbl_Interfaces.Include(t => t.tbl_Clients);
-            return View(tbl_interfaces.ToList());
+            var tbl_clientinfo = db.tbl_ClientInfo.Include(t => t.tbl_Clients);
+            return View(tbl_clientinfo.ToList());
         }
 
         //
-        // GET: /Interfaces/Details/5
+        // GET: /ClientInfo/Details/5
 
         public ActionResult Details(int id = 0)
         {
-            tbl_Interfaces tbl_interfaces = db.tbl_Interfaces.Find(id);
-            if (tbl_interfaces == null)
+            tbl_ClientInfo tbl_clientinfo = db.tbl_ClientInfo.Find(id);
+            if (tbl_clientinfo == null)
             {
                 return HttpNotFound();
             }
-            return View(tbl_interfaces);
+            return View(tbl_clientinfo);
         }
 
         //
-        // GET: /Interfaces/Create
+        // GET: /ClientInfo/Create
 
         public ActionResult Create()
         {
@@ -45,76 +45,76 @@ namespace FrontEnd.Controllers
         }
 
         //
-        // POST: /Interfaces/Create
+        // POST: /ClientInfo/Create
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(tbl_Interfaces tbl_interfaces)
+        public ActionResult Create(tbl_ClientInfo tbl_clientinfo)
         {
             if (ModelState.IsValid)
             {
-                db.tbl_Interfaces.Add(tbl_interfaces);
+                db.tbl_ClientInfo.Add(tbl_clientinfo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ClientID = new SelectList(db.tbl_Clients, "ClientID", "HostName", tbl_interfaces.ClientID);
-            return View(tbl_interfaces);
+            ViewBag.ClientID = new SelectList(db.tbl_Clients, "ClientID", "HostName", tbl_clientinfo.ClientID);
+            return View(tbl_clientinfo);
         }
 
         //
-        // GET: /Interfaces/Edit/5
+        // GET: /ClientInfo/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
-            tbl_Interfaces tbl_interfaces = db.tbl_Interfaces.Find(id);
-            if (tbl_interfaces == null)
+            tbl_ClientInfo tbl_clientinfo = db.tbl_ClientInfo.Find(id);
+            if (tbl_clientinfo == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ClientID = new SelectList(db.tbl_Clients, "ClientID", "HostName", tbl_interfaces.ClientID);
-            return View(tbl_interfaces);
+            ViewBag.ClientID = new SelectList(db.tbl_Clients, "ClientID", "HostName", tbl_clientinfo.ClientID);
+            return View(tbl_clientinfo);
         }
 
         //
-        // POST: /Interfaces/Edit/5
+        // POST: /ClientInfo/Edit/5
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(tbl_Interfaces tbl_interfaces)
+        public ActionResult Edit(tbl_ClientInfo tbl_clientinfo)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tbl_interfaces).State = EntityState.Modified;
+                db.Entry(tbl_clientinfo).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ClientID = new SelectList(db.tbl_Clients, "ClientID", "HostName", tbl_interfaces.ClientID);
-            return View(tbl_interfaces);
+            ViewBag.ClientID = new SelectList(db.tbl_Clients, "ClientID", "HostName", tbl_clientinfo.ClientID);
+            return View(tbl_clientinfo);
         }
 
         //
-        // GET: /Interfaces/Delete/5
+        // GET: /ClientInfo/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
-            tbl_Interfaces tbl_interfaces = db.tbl_Interfaces.Find(id);
-            if (tbl_interfaces == null)
+            tbl_ClientInfo tbl_clientinfo = db.tbl_ClientInfo.Find(id);
+            if (tbl_clientinfo == null)
             {
                 return HttpNotFound();
             }
-            return View(tbl_interfaces);
+            return View(tbl_clientinfo);
         }
 
         //
-        // POST: /Interfaces/Delete/5
+        // POST: /ClientInfo/Delete/5
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            tbl_Interfaces tbl_interfaces = db.tbl_Interfaces.Find(id);
-            db.tbl_Interfaces.Remove(tbl_interfaces);
+            tbl_ClientInfo tbl_clientinfo = db.tbl_ClientInfo.Find(id);
+            db.tbl_ClientInfo.Remove(tbl_clientinfo);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

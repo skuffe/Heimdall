@@ -14,7 +14,7 @@ namespace FrontEnd.Controllers
         private HeimdallContext db = new HeimdallContext();
 
         //
-        // GET: /Client/
+        // GET: /Clients/
 
         public ActionResult Index()
         {
@@ -23,7 +23,7 @@ namespace FrontEnd.Controllers
         }
 
         //
-        // GET: /Client/Details/5
+        // GET: /Clients/Details/5
 
         public ActionResult Details(int id = 0)
         {
@@ -36,7 +36,7 @@ namespace FrontEnd.Controllers
         }
 
         //
-        // GET: /Client/Create
+        // GET: /Clients/Create
 
         public ActionResult Create()
         {
@@ -46,7 +46,7 @@ namespace FrontEnd.Controllers
         }
 
         //
-        // POST: /Client/Create
+        // POST: /Clients/Create
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -65,7 +65,7 @@ namespace FrontEnd.Controllers
         }
 
         //
-        // GET: /Client/Edit/5
+        // GET: /Clients/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
@@ -80,7 +80,7 @@ namespace FrontEnd.Controllers
         }
 
         //
-        // POST: /Client/Edit/5
+        // POST: /Clients/Edit/5
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -98,7 +98,7 @@ namespace FrontEnd.Controllers
         }
 
         //
-        // GET: /Client/Delete/5
+        // GET: /Clients/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
@@ -111,7 +111,7 @@ namespace FrontEnd.Controllers
         }
 
         //
-        // POST: /Client/Delete/5
+        // POST: /Clients/Delete/5
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
