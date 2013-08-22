@@ -13,6 +13,7 @@ namespace DataCollectionHost
         string dbName;
         string user;
         string pass;
+        string comName;
 
         public ConfigReader(string path)
         {
@@ -21,6 +22,7 @@ namespace DataCollectionHost
             dbName = "";
             user = "";
             pass = "";
+            comName = "";
             readConfig(path);
         }
 
@@ -46,6 +48,8 @@ namespace DataCollectionHost
                         this.user = currLine.Split('=')[1];
                     else if (currLine.ToLower().Contains("pass="))
                         this.pass = currLine.Split('=')[1];
+                    else if (currLine.ToLower().Contains("comname="))
+                        this.comName = currLine.Split('=')[1];
                 }
                 return true;
             }
@@ -79,6 +83,11 @@ namespace DataCollectionHost
         public string getPass()
         {
             return this.pass;
+        }
+
+        public string getComName()
+        {
+            return this.comName;
         }
 
         #endregion
