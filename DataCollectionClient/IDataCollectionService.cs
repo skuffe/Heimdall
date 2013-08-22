@@ -61,7 +61,7 @@ namespace DataCollectionClient
             get { return time; }
             set { time = value; }
         }
-
+        
         [DataMember]
         public string PcName
         {

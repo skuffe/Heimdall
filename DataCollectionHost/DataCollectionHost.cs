@@ -16,7 +16,8 @@ namespace DataCollectionHost
 {
     public partial class DataCollectionHost : ServiceBase
     {
-        IDataCollectionService collectorService = null;
+        SqlConnector sqlConn = new SqlConnector();
+        ConfigReader confReader = new ConfigReader("D:\\config.txt");
 
         public DataCollectionHost()
         {
@@ -28,21 +29,15 @@ namespace DataCollectionHost
             this.CanPauseAndContinue = false;
             this.CanStop = true;
             this.CanShutdown = true;
+
+            sqlConn.setConnectionProperties(confReader.GetDBaddress(), confReader.GetDBname(), confReader.GetUser(), confReader.getPass());
         }
 
         protected override void OnStart(string[] args)
         {
-            //Start the SNMP listener in a separate thread
-            SNMPInterface snmpInterface = new SNMPInterface();
-            Thread snmpThread = new Thread(snmpInterface.threadWrapper);
-
-            snmpThread.IsBackground = true;
-            snmpThread.Start();
-
-            //Create an array of all the addresses and make endpoints/channels
-            //Create a thread for each host
-            SysInfoCollector infoCollector = new SysInfoCollector("127.0.0.1", "2200");
-            Thread thread = new Thread(infoCollector.collect);
+            //Creates the SystemInfo collector thread
+            SysInfoCollector infoCollector = new SysInfoCollector(sqlConn, confReader);
+            Thread thread = new Thread(infoCollector.ThreadWrapper);
 
             thread.IsBackground = true;
             thread.Start();
