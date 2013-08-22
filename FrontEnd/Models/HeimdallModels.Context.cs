@@ -13,10 +13,10 @@ namespace FrontEnd.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class HeimdallContext : DbContext
+    public partial class heimdallEntities : DbContext
     {
-        public HeimdallContext()
-            : base("name=HeimdallContext")
+        public heimdallEntities()
+            : base("name=heimdallEntities")
         {
         }
     

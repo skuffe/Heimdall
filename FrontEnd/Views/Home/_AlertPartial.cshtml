@@ -1,15 +1,5 @@
 ﻿@model IEnumerable<FrontEnd.Models.tbl_Clients>
 
-<script type="text/javascript">
-setInterval(function () {
-    $.post('@Url.Action("Index")', function (data) {
-            $('#AlertDiv').html(data);
-        }
-    );
-}, 20000);
-</script>
-<div id="AlertDiv">
-
 @if (ViewBag.ErrorCount > 0) {
 <h4>Clients currently not responding</h4>
     
@@ -33,7 +23,7 @@ setInterval(function () {
     </tr>
 
 
-@foreach (var item in Model) { if (item.tbl_ClientInfo.Count > 0 && item.tbl_ClientInfo.LastOrDefault().IsResponding == false) {
+@foreach (var item in Model) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.tbl_Groups.GroupName)
@@ -50,13 +40,15 @@ setInterval(function () {
         <td>
             @Html.DisplayFor(modelItem => item.DownTime)
         </td>
+        <td>
+           @Html.ActionLink("Details", "Details", new { id=item.ClientID })
+        </td>
+        <td>
+           @Html.ActionLink("Disable", "Disable", new { id=item.ClientID })
+        </td>
     </tr>
-    }
 }
-
 </table>
 } else {
 <h4>All is well :-) Have a nice day!</h4>    
 }
-
-</div>

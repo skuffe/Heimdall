@@ -4,41 +4,41 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="HeimdallModels.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityContainer Name="HeimdallModelsStoreContainer">
-          <EntitySet Name="tbl_ClientInfo" EntityType="HeimdallModels.Store.tbl_ClientInfo" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="tbl_Clients" EntityType="HeimdallModels.Store.tbl_Clients" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="tbl_ClientTypes" EntityType="HeimdallModels.Store.tbl_ClientTypes" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="tbl_Groups" EntityType="HeimdallModels.Store.tbl_Groups" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="tbl_InterfaceInfo" EntityType="HeimdallModels.Store.tbl_InterfaceInfo" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="tbl_Interfaces" EntityType="HeimdallModels.Store.tbl_Interfaces" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="tbl_Processes" EntityType="HeimdallModels.Store.tbl_Processes" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="tbl_ProcessInfo" EntityType="HeimdallModels.Store.tbl_ProcessInfo" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK_tbl_ClientInfo_tbl_Clients" Association="HeimdallModels.Store.FK_tbl_ClientInfo_tbl_Clients">
+      <Schema Namespace="HeimdallContext.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="HeimdallContextStoreContainer">
+          <EntitySet Name="tbl_ClientInfo" EntityType="HeimdallContext.Store.tbl_ClientInfo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbl_Clients" EntityType="HeimdallContext.Store.tbl_Clients" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbl_ClientTypes" EntityType="HeimdallContext.Store.tbl_ClientTypes" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbl_Groups" EntityType="HeimdallContext.Store.tbl_Groups" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbl_InterfaceInfo" EntityType="HeimdallContext.Store.tbl_InterfaceInfo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbl_Interfaces" EntityType="HeimdallContext.Store.tbl_Interfaces" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbl_Processes" EntityType="HeimdallContext.Store.tbl_Processes" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbl_ProcessInfo" EntityType="HeimdallContext.Store.tbl_ProcessInfo" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_tbl_ClientInfo_tbl_Clients" Association="HeimdallContext.Store.FK_tbl_ClientInfo_tbl_Clients">
             <End Role="tbl_Clients" EntitySet="tbl_Clients" />
             <End Role="tbl_ClientInfo" EntitySet="tbl_ClientInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_Clients_tbl_ClientTypes" Association="HeimdallModels.Store.FK_tbl_Clients_tbl_ClientTypes">
+          <AssociationSet Name="FK_tbl_Clients_tbl_ClientTypes" Association="HeimdallContext.Store.FK_tbl_Clients_tbl_ClientTypes">
             <End Role="tbl_ClientTypes" EntitySet="tbl_ClientTypes" />
             <End Role="tbl_Clients" EntitySet="tbl_Clients" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_Clients_tbl_Groups" Association="HeimdallModels.Store.FK_tbl_Clients_tbl_Groups">
+          <AssociationSet Name="FK_tbl_Clients_tbl_Groups" Association="HeimdallContext.Store.FK_tbl_Clients_tbl_Groups">
             <End Role="tbl_Groups" EntitySet="tbl_Groups" />
             <End Role="tbl_Clients" EntitySet="tbl_Clients" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_InterfaceInfo_tbl_Interfaces" Association="HeimdallModels.Store.FK_tbl_InterfaceInfo_tbl_Interfaces">
+          <AssociationSet Name="FK_tbl_InterfaceInfo_tbl_Interfaces" Association="HeimdallContext.Store.FK_tbl_InterfaceInfo_tbl_Interfaces">
             <End Role="tbl_Interfaces" EntitySet="tbl_Interfaces" />
             <End Role="tbl_InterfaceInfo" EntitySet="tbl_InterfaceInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_Interfaces_tbl_Clients" Association="HeimdallModels.Store.FK_tbl_Interfaces_tbl_Clients">
+          <AssociationSet Name="FK_tbl_Interfaces_tbl_Clients" Association="HeimdallContext.Store.FK_tbl_Interfaces_tbl_Clients">
             <End Role="tbl_Clients" EntitySet="tbl_Clients" />
             <End Role="tbl_Interfaces" EntitySet="tbl_Interfaces" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_Processes_tbl_Clients" Association="HeimdallModels.Store.FK_tbl_Processes_tbl_Clients">
+          <AssociationSet Name="FK_tbl_Processes_tbl_Clients" Association="HeimdallContext.Store.FK_tbl_Processes_tbl_Clients">
             <End Role="tbl_Clients" EntitySet="tbl_Clients" />
             <End Role="tbl_Processes" EntitySet="tbl_Processes" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_ProcessInfo_tbl_Processes" Association="HeimdallModels.Store.FK_tbl_ProcessInfo_tbl_Processes">
+          <AssociationSet Name="FK_tbl_ProcessInfo_tbl_Processes" Association="HeimdallContext.Store.FK_tbl_ProcessInfo_tbl_Processes">
             <End Role="tbl_Processes" EntitySet="tbl_Processes" />
             <End Role="tbl_ProcessInfo" EntitySet="tbl_ProcessInfo" />
           </AssociationSet>
@@ -52,7 +52,7 @@
           <Property Name="TimeStamp" Type="datetime" />
           <Property Name="OSVersion" Type="varchar" MaxLength="50" />
           <Property Name="DiskSpace" Type="varchar(max)" />
-          <Property Name="UpTime" Type="int" />
+          <Property Name="UpTime" Type="varchar" MaxLength="50" />
           <Property Name="RAM" Type="varchar" MaxLength="50" />
           <Property Name="CPU" Type="varchar" MaxLength="50" />
           <Property Name="Ping" Type="varchar" MaxLength="50" />
@@ -122,8 +122,8 @@
           <Property Name="IsRunning" Type="bit" />
         </EntityType>
         <Association Name="FK_tbl_ClientInfo_tbl_Clients">
-          <End Role="tbl_Clients" Type="HeimdallModels.Store.tbl_Clients" Multiplicity="0..1" />
-          <End Role="tbl_ClientInfo" Type="HeimdallModels.Store.tbl_ClientInfo" Multiplicity="*" />
+          <End Role="tbl_Clients" Type="HeimdallContext.Store.tbl_Clients" Multiplicity="0..1" />
+          <End Role="tbl_ClientInfo" Type="HeimdallContext.Store.tbl_ClientInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tbl_Clients">
               <PropertyRef Name="ClientID" />
@@ -134,8 +134,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tbl_Clients_tbl_ClientTypes">
-          <End Role="tbl_ClientTypes" Type="HeimdallModels.Store.tbl_ClientTypes" Multiplicity="0..1" />
-          <End Role="tbl_Clients" Type="HeimdallModels.Store.tbl_Clients" Multiplicity="*" />
+          <End Role="tbl_ClientTypes" Type="HeimdallContext.Store.tbl_ClientTypes" Multiplicity="0..1" />
+          <End Role="tbl_Clients" Type="HeimdallContext.Store.tbl_Clients" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tbl_ClientTypes">
               <PropertyRef Name="ClientTypeID" />
@@ -146,8 +146,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tbl_Clients_tbl_Groups">
-          <End Role="tbl_Groups" Type="HeimdallModels.Store.tbl_Groups" Multiplicity="0..1" />
-          <End Role="tbl_Clients" Type="HeimdallModels.Store.tbl_Clients" Multiplicity="*" />
+          <End Role="tbl_Groups" Type="HeimdallContext.Store.tbl_Groups" Multiplicity="0..1" />
+          <End Role="tbl_Clients" Type="HeimdallContext.Store.tbl_Clients" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tbl_Groups">
               <PropertyRef Name="GroupID" />
@@ -158,8 +158,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tbl_InterfaceInfo_tbl_Interfaces">
-          <End Role="tbl_Interfaces" Type="HeimdallModels.Store.tbl_Interfaces" Multiplicity="0..1" />
-          <End Role="tbl_InterfaceInfo" Type="HeimdallModels.Store.tbl_InterfaceInfo" Multiplicity="*" />
+          <End Role="tbl_Interfaces" Type="HeimdallContext.Store.tbl_Interfaces" Multiplicity="0..1" />
+          <End Role="tbl_InterfaceInfo" Type="HeimdallContext.Store.tbl_InterfaceInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tbl_Interfaces">
               <PropertyRef Name="InterfaceID" />
@@ -170,8 +170,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tbl_Interfaces_tbl_Clients">
-          <End Role="tbl_Clients" Type="HeimdallModels.Store.tbl_Clients" Multiplicity="0..1" />
-          <End Role="tbl_Interfaces" Type="HeimdallModels.Store.tbl_Interfaces" Multiplicity="*" />
+          <End Role="tbl_Clients" Type="HeimdallContext.Store.tbl_Clients" Multiplicity="0..1" />
+          <End Role="tbl_Interfaces" Type="HeimdallContext.Store.tbl_Interfaces" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tbl_Clients">
               <PropertyRef Name="ClientID" />
@@ -182,8 +182,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tbl_Processes_tbl_Clients">
-          <End Role="tbl_Clients" Type="HeimdallModels.Store.tbl_Clients" Multiplicity="0..1" />
-          <End Role="tbl_Processes" Type="HeimdallModels.Store.tbl_Processes" Multiplicity="*" />
+          <End Role="tbl_Clients" Type="HeimdallContext.Store.tbl_Clients" Multiplicity="0..1" />
+          <End Role="tbl_Processes" Type="HeimdallContext.Store.tbl_Processes" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tbl_Clients">
               <PropertyRef Name="ClientID" />
@@ -194,8 +194,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tbl_ProcessInfo_tbl_Processes">
-          <End Role="tbl_Processes" Type="HeimdallModels.Store.tbl_Processes" Multiplicity="0..1" />
-          <End Role="tbl_ProcessInfo" Type="HeimdallModels.Store.tbl_ProcessInfo" Multiplicity="*" />
+          <End Role="tbl_Processes" Type="HeimdallContext.Store.tbl_Processes" Multiplicity="0..1" />
+          <End Role="tbl_ProcessInfo" Type="HeimdallContext.Store.tbl_ProcessInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tbl_Processes">
               <PropertyRef Name="ProcessID" />
@@ -209,41 +209,41 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="HeimdallModels" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="HeimdallContext" p1:LazyLoadingEnabled="true">
-          <EntitySet Name="tbl_ClientInfo" EntityType="HeimdallModels.tbl_ClientInfo" />
-          <EntitySet Name="tbl_Clients" EntityType="HeimdallModels.tbl_Clients" />
-          <EntitySet Name="tbl_ClientTypes" EntityType="HeimdallModels.tbl_ClientTypes" />
-          <EntitySet Name="tbl_Groups" EntityType="HeimdallModels.tbl_Groups" />
-          <EntitySet Name="tbl_InterfaceInfo" EntityType="HeimdallModels.tbl_InterfaceInfo" />
-          <EntitySet Name="tbl_Interfaces" EntityType="HeimdallModels.tbl_Interfaces" />
-          <EntitySet Name="tbl_Processes" EntityType="HeimdallModels.tbl_Processes" />
-          <EntitySet Name="tbl_ProcessInfo" EntityType="HeimdallModels.tbl_ProcessInfo" />
-          <AssociationSet Name="FK_tbl_ClientInfo_tbl_Clients" Association="HeimdallModels.FK_tbl_ClientInfo_tbl_Clients">
+      <Schema Namespace="HeimdallContext" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="heimdallEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_ClientInfo" EntityType="HeimdallContext.tbl_ClientInfo" />
+          <EntitySet Name="tbl_Clients" EntityType="HeimdallContext.tbl_Clients" />
+          <EntitySet Name="tbl_ClientTypes" EntityType="HeimdallContext.tbl_ClientTypes" />
+          <EntitySet Name="tbl_Groups" EntityType="HeimdallContext.tbl_Groups" />
+          <EntitySet Name="tbl_InterfaceInfo" EntityType="HeimdallContext.tbl_InterfaceInfo" />
+          <EntitySet Name="tbl_Interfaces" EntityType="HeimdallContext.tbl_Interfaces" />
+          <EntitySet Name="tbl_Processes" EntityType="HeimdallContext.tbl_Processes" />
+          <EntitySet Name="tbl_ProcessInfo" EntityType="HeimdallContext.tbl_ProcessInfo" />
+          <AssociationSet Name="FK_tbl_ClientInfo_tbl_Clients" Association="HeimdallContext.FK_tbl_ClientInfo_tbl_Clients">
             <End Role="tbl_Clients" EntitySet="tbl_Clients" />
             <End Role="tbl_ClientInfo" EntitySet="tbl_ClientInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_Clients_tbl_ClientTypes" Association="HeimdallModels.FK_tbl_Clients_tbl_ClientTypes">
+          <AssociationSet Name="FK_tbl_Clients_tbl_ClientTypes" Association="HeimdallContext.FK_tbl_Clients_tbl_ClientTypes">
             <End Role="tbl_ClientTypes" EntitySet="tbl_ClientTypes" />
             <End Role="tbl_Clients" EntitySet="tbl_Clients" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_Clients_tbl_Groups" Association="HeimdallModels.FK_tbl_Clients_tbl_Groups">
+          <AssociationSet Name="FK_tbl_Clients_tbl_Groups" Association="HeimdallContext.FK_tbl_Clients_tbl_Groups">
             <End Role="tbl_Groups" EntitySet="tbl_Groups" />
             <End Role="tbl_Clients" EntitySet="tbl_Clients" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_Interfaces_tbl_Clients" Association="HeimdallModels.FK_tbl_Interfaces_tbl_Clients">
+          <AssociationSet Name="FK_tbl_Interfaces_tbl_Clients" Association="HeimdallContext.FK_tbl_Interfaces_tbl_Clients">
             <End Role="tbl_Clients" EntitySet="tbl_Clients" />
             <End Role="tbl_Interfaces" EntitySet="tbl_Interfaces" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_Processes_tbl_Clients" Association="HeimdallModels.FK_tbl_Processes_tbl_Clients">
+          <AssociationSet Name="FK_tbl_Processes_tbl_Clients" Association="HeimdallContext.FK_tbl_Processes_tbl_Clients">
             <End Role="tbl_Clients" EntitySet="tbl_Clients" />
             <End Role="tbl_Processes" EntitySet="tbl_Processes" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_InterfaceInfo_tbl_Interfaces" Association="HeimdallModels.FK_tbl_InterfaceInfo_tbl_Interfaces">
+          <AssociationSet Name="FK_tbl_InterfaceInfo_tbl_Interfaces" Association="HeimdallContext.FK_tbl_InterfaceInfo_tbl_Interfaces">
             <End Role="tbl_Interfaces" EntitySet="tbl_Interfaces" />
             <End Role="tbl_InterfaceInfo" EntitySet="tbl_InterfaceInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_ProcessInfo_tbl_Processes" Association="HeimdallModels.FK_tbl_ProcessInfo_tbl_Processes">
+          <AssociationSet Name="FK_tbl_ProcessInfo_tbl_Processes" Association="HeimdallContext.FK_tbl_ProcessInfo_tbl_Processes">
             <End Role="tbl_Processes" EntitySet="tbl_Processes" />
             <End Role="tbl_ProcessInfo" EntitySet="tbl_ProcessInfo" />
           </AssociationSet>
@@ -257,12 +257,12 @@
           <Property Name="TimeStamp" Type="DateTime" Precision="3" />
           <Property Name="OSVersion" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="DiskSpace" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
-          <Property Name="UpTime" Type="Int32" />
+          <Property Name="UpTime" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="RAM" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="CPU" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="Ping" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="IsResponding" Type="Boolean" />
-          <NavigationProperty Name="tbl_Clients" Relationship="HeimdallModels.FK_tbl_ClientInfo_tbl_Clients" FromRole="tbl_ClientInfo" ToRole="tbl_Clients" />
+          <NavigationProperty Name="tbl_Clients" Relationship="HeimdallContext.FK_tbl_ClientInfo_tbl_Clients" FromRole="tbl_ClientInfo" ToRole="tbl_Clients" />
         </EntityType>
         <EntityType Name="tbl_Clients">
           <Key>
@@ -273,11 +273,11 @@
           <Property Name="ClientTypeID" Type="Int32" />
           <Property Name="HostName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="IPAddress" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="tbl_ClientInfo" Relationship="HeimdallModels.FK_tbl_ClientInfo_tbl_Clients" FromRole="tbl_Clients" ToRole="tbl_ClientInfo" />
-          <NavigationProperty Name="tbl_ClientTypes" Relationship="HeimdallModels.FK_tbl_Clients_tbl_ClientTypes" FromRole="tbl_Clients" ToRole="tbl_ClientTypes" />
-          <NavigationProperty Name="tbl_Groups" Relationship="HeimdallModels.FK_tbl_Clients_tbl_Groups" FromRole="tbl_Clients" ToRole="tbl_Groups" />
-          <NavigationProperty Name="tbl_Interfaces" Relationship="HeimdallModels.FK_tbl_Interfaces_tbl_Clients" FromRole="tbl_Clients" ToRole="tbl_Interfaces" />
-          <NavigationProperty Name="tbl_Processes" Relationship="HeimdallModels.FK_tbl_Processes_tbl_Clients" FromRole="tbl_Clients" ToRole="tbl_Processes" />
+          <NavigationProperty Name="tbl_ClientInfo" Relationship="HeimdallContext.FK_tbl_ClientInfo_tbl_Clients" FromRole="tbl_Clients" ToRole="tbl_ClientInfo" />
+          <NavigationProperty Name="tbl_ClientTypes" Relationship="HeimdallContext.FK_tbl_Clients_tbl_ClientTypes" FromRole="tbl_Clients" ToRole="tbl_ClientTypes" />
+          <NavigationProperty Name="tbl_Groups" Relationship="HeimdallContext.FK_tbl_Clients_tbl_Groups" FromRole="tbl_Clients" ToRole="tbl_Groups" />
+          <NavigationProperty Name="tbl_Interfaces" Relationship="HeimdallContext.FK_tbl_Interfaces_tbl_Clients" FromRole="tbl_Clients" ToRole="tbl_Interfaces" />
+          <NavigationProperty Name="tbl_Processes" Relationship="HeimdallContext.FK_tbl_Processes_tbl_Clients" FromRole="tbl_Clients" ToRole="tbl_Processes" />
         </EntityType>
         <EntityType Name="tbl_ClientTypes">
           <Key>
@@ -287,7 +287,7 @@
           <Property Name="TypeName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="PropertyList" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
           <Property Name="IsSNMPDevice" Type="Boolean" />
-          <NavigationProperty Name="tbl_Clients" Relationship="HeimdallModels.FK_tbl_Clients_tbl_ClientTypes" FromRole="tbl_ClientTypes" ToRole="tbl_Clients" />
+          <NavigationProperty Name="tbl_Clients" Relationship="HeimdallContext.FK_tbl_Clients_tbl_ClientTypes" FromRole="tbl_ClientTypes" ToRole="tbl_Clients" />
         </EntityType>
         <EntityType Name="tbl_Groups">
           <Key>
@@ -295,7 +295,7 @@
           </Key>
           <Property Name="GroupID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="GroupName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="tbl_Clients" Relationship="HeimdallModels.FK_tbl_Clients_tbl_Groups" FromRole="tbl_Groups" ToRole="tbl_Clients" />
+          <NavigationProperty Name="tbl_Clients" Relationship="HeimdallContext.FK_tbl_Clients_tbl_Groups" FromRole="tbl_Groups" ToRole="tbl_Clients" />
         </EntityType>
         <EntityType Name="tbl_InterfaceInfo">
           <Key>
@@ -308,7 +308,7 @@
           <Property Name="IfOutOctets" Type="Int32" />
           <Property Name="IfSpeed" Type="Int32" />
           <Property Name="IsUp" Type="Boolean" />
-          <NavigationProperty Name="tbl_Interfaces" Relationship="HeimdallModels.FK_tbl_InterfaceInfo_tbl_Interfaces" FromRole="tbl_InterfaceInfo" ToRole="tbl_Interfaces" />
+          <NavigationProperty Name="tbl_Interfaces" Relationship="HeimdallContext.FK_tbl_InterfaceInfo_tbl_Interfaces" FromRole="tbl_InterfaceInfo" ToRole="tbl_Interfaces" />
         </EntityType>
         <EntityType Name="tbl_Interfaces">
           <Key>
@@ -317,8 +317,8 @@
           <Property Name="InterfaceID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="ClientID" Type="Int32" />
           <Property Name="InterfaceName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="tbl_Clients" Relationship="HeimdallModels.FK_tbl_Interfaces_tbl_Clients" FromRole="tbl_Interfaces" ToRole="tbl_Clients" />
-          <NavigationProperty Name="tbl_InterfaceInfo" Relationship="HeimdallModels.FK_tbl_InterfaceInfo_tbl_Interfaces" FromRole="tbl_Interfaces" ToRole="tbl_InterfaceInfo" />
+          <NavigationProperty Name="tbl_Clients" Relationship="HeimdallContext.FK_tbl_Interfaces_tbl_Clients" FromRole="tbl_Interfaces" ToRole="tbl_Clients" />
+          <NavigationProperty Name="tbl_InterfaceInfo" Relationship="HeimdallContext.FK_tbl_InterfaceInfo_tbl_Interfaces" FromRole="tbl_Interfaces" ToRole="tbl_InterfaceInfo" />
         </EntityType>
         <EntityType Name="tbl_Processes">
           <Key>
@@ -327,8 +327,8 @@
           <Property Name="ProcessID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="ClientID" Type="Int32" />
           <Property Name="ProcessName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="tbl_Clients" Relationship="HeimdallModels.FK_tbl_Processes_tbl_Clients" FromRole="tbl_Processes" ToRole="tbl_Clients" />
-          <NavigationProperty Name="tbl_ProcessInfo" Relationship="HeimdallModels.FK_tbl_ProcessInfo_tbl_Processes" FromRole="tbl_Processes" ToRole="tbl_ProcessInfo" />
+          <NavigationProperty Name="tbl_Clients" Relationship="HeimdallContext.FK_tbl_Processes_tbl_Clients" FromRole="tbl_Processes" ToRole="tbl_Clients" />
+          <NavigationProperty Name="tbl_ProcessInfo" Relationship="HeimdallContext.FK_tbl_ProcessInfo_tbl_Processes" FromRole="tbl_Processes" ToRole="tbl_ProcessInfo" />
         </EntityType>
         <EntityType Name="tbl_ProcessInfo">
           <Key>
@@ -338,11 +338,11 @@
           <Property Name="ProcessID" Type="Int32" />
           <Property Name="TimeStamp" Type="DateTime" Precision="3" />
           <Property Name="IsRunning" Type="Boolean" />
-          <NavigationProperty Name="tbl_Processes" Relationship="HeimdallModels.FK_tbl_ProcessInfo_tbl_Processes" FromRole="tbl_ProcessInfo" ToRole="tbl_Processes" />
+          <NavigationProperty Name="tbl_Processes" Relationship="HeimdallContext.FK_tbl_ProcessInfo_tbl_Processes" FromRole="tbl_ProcessInfo" ToRole="tbl_Processes" />
         </EntityType>
         <Association Name="FK_tbl_ClientInfo_tbl_Clients">
-          <End Role="tbl_Clients" Type="HeimdallModels.tbl_Clients" Multiplicity="0..1" />
-          <End Role="tbl_ClientInfo" Type="HeimdallModels.tbl_ClientInfo" Multiplicity="*" />
+          <End Role="tbl_Clients" Type="HeimdallContext.tbl_Clients" Multiplicity="0..1" />
+          <End Role="tbl_ClientInfo" Type="HeimdallContext.tbl_ClientInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tbl_Clients">
               <PropertyRef Name="ClientID" />
@@ -353,8 +353,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tbl_Clients_tbl_ClientTypes">
-          <End Role="tbl_ClientTypes" Type="HeimdallModels.tbl_ClientTypes" Multiplicity="0..1" />
-          <End Role="tbl_Clients" Type="HeimdallModels.tbl_Clients" Multiplicity="*" />
+          <End Role="tbl_ClientTypes" Type="HeimdallContext.tbl_ClientTypes" Multiplicity="0..1" />
+          <End Role="tbl_Clients" Type="HeimdallContext.tbl_Clients" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tbl_ClientTypes">
               <PropertyRef Name="ClientTypeID" />
@@ -365,8 +365,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tbl_Clients_tbl_Groups">
-          <End Role="tbl_Groups" Type="HeimdallModels.tbl_Groups" Multiplicity="0..1" />
-          <End Role="tbl_Clients" Type="HeimdallModels.tbl_Clients" Multiplicity="*" />
+          <End Role="tbl_Groups" Type="HeimdallContext.tbl_Groups" Multiplicity="0..1" />
+          <End Role="tbl_Clients" Type="HeimdallContext.tbl_Clients" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tbl_Groups">
               <PropertyRef Name="GroupID" />
@@ -377,8 +377,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tbl_Interfaces_tbl_Clients">
-          <End Role="tbl_Clients" Type="HeimdallModels.tbl_Clients" Multiplicity="0..1" />
-          <End Role="tbl_Interfaces" Type="HeimdallModels.tbl_Interfaces" Multiplicity="*" />
+          <End Role="tbl_Clients" Type="HeimdallContext.tbl_Clients" Multiplicity="0..1" />
+          <End Role="tbl_Interfaces" Type="HeimdallContext.tbl_Interfaces" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tbl_Clients">
               <PropertyRef Name="ClientID" />
@@ -389,8 +389,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tbl_Processes_tbl_Clients">
-          <End Role="tbl_Clients" Type="HeimdallModels.tbl_Clients" Multiplicity="0..1" />
-          <End Role="tbl_Processes" Type="HeimdallModels.tbl_Processes" Multiplicity="*" />
+          <End Role="tbl_Clients" Type="HeimdallContext.tbl_Clients" Multiplicity="0..1" />
+          <End Role="tbl_Processes" Type="HeimdallContext.tbl_Processes" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tbl_Clients">
               <PropertyRef Name="ClientID" />
@@ -401,8 +401,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tbl_InterfaceInfo_tbl_Interfaces">
-          <End Role="tbl_Interfaces" Type="HeimdallModels.tbl_Interfaces" Multiplicity="0..1" />
-          <End Role="tbl_InterfaceInfo" Type="HeimdallModels.tbl_InterfaceInfo" Multiplicity="*" />
+          <End Role="tbl_Interfaces" Type="HeimdallContext.tbl_Interfaces" Multiplicity="0..1" />
+          <End Role="tbl_InterfaceInfo" Type="HeimdallContext.tbl_InterfaceInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tbl_Interfaces">
               <PropertyRef Name="InterfaceID" />
@@ -413,8 +413,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tbl_ProcessInfo_tbl_Processes">
-          <End Role="tbl_Processes" Type="HeimdallModels.tbl_Processes" Multiplicity="0..1" />
-          <End Role="tbl_ProcessInfo" Type="HeimdallModels.tbl_ProcessInfo" Multiplicity="*" />
+          <End Role="tbl_Processes" Type="HeimdallContext.tbl_Processes" Multiplicity="0..1" />
+          <End Role="tbl_ProcessInfo" Type="HeimdallContext.tbl_ProcessInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tbl_Processes">
               <PropertyRef Name="ProcessID" />
@@ -429,9 +429,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="HeimdallModelsStoreContainer" CdmEntityContainer="HeimdallContext">
+        <EntityContainerMapping StorageEntityContainer="HeimdallContextStoreContainer" CdmEntityContainer="heimdallEntities">
           <EntitySetMapping Name="tbl_ClientInfo">
-            <EntityTypeMapping TypeName="HeimdallModels.tbl_ClientInfo">
+            <EntityTypeMapping TypeName="HeimdallContext.tbl_ClientInfo">
               <MappingFragment StoreEntitySet="tbl_ClientInfo">
                 <ScalarProperty Name="ClientInfoID" ColumnName="ClientInfoID" />
                 <ScalarProperty Name="ClientID" ColumnName="ClientID" />
@@ -447,7 +447,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Clients">
-            <EntityTypeMapping TypeName="HeimdallModels.tbl_Clients">
+            <EntityTypeMapping TypeName="HeimdallContext.tbl_Clients">
               <MappingFragment StoreEntitySet="tbl_Clients">
                 <ScalarProperty Name="ClientID" ColumnName="ClientID" />
                 <ScalarProperty Name="GroupID" ColumnName="GroupID" />
@@ -458,7 +458,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_ClientTypes">
-            <EntityTypeMapping TypeName="HeimdallModels.tbl_ClientTypes">
+            <EntityTypeMapping TypeName="HeimdallContext.tbl_ClientTypes">
               <MappingFragment StoreEntitySet="tbl_ClientTypes">
                 <ScalarProperty Name="ClientTypeID" ColumnName="ClientTypeID" />
                 <ScalarProperty Name="TypeName" ColumnName="TypeName" />
@@ -468,7 +468,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Groups">
-            <EntityTypeMapping TypeName="HeimdallModels.tbl_Groups">
+            <EntityTypeMapping TypeName="HeimdallContext.tbl_Groups">
               <MappingFragment StoreEntitySet="tbl_Groups">
                 <ScalarProperty Name="GroupID" ColumnName="GroupID" />
                 <ScalarProperty Name="GroupName" ColumnName="GroupName" />
@@ -476,7 +476,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_InterfaceInfo">
-            <EntityTypeMapping TypeName="HeimdallModels.tbl_InterfaceInfo">
+            <EntityTypeMapping TypeName="HeimdallContext.tbl_InterfaceInfo">
               <MappingFragment StoreEntitySet="tbl_InterfaceInfo">
                 <ScalarProperty Name="InterfaceInfoID" ColumnName="InterfaceInfoID" />
                 <ScalarProperty Name="InterfaceID" ColumnName="InterfaceID" />
@@ -489,7 +489,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Interfaces">
-            <EntityTypeMapping TypeName="HeimdallModels.tbl_Interfaces">
+            <EntityTypeMapping TypeName="HeimdallContext.tbl_Interfaces">
               <MappingFragment StoreEntitySet="tbl_Interfaces">
                 <ScalarProperty Name="InterfaceID" ColumnName="InterfaceID" />
                 <ScalarProperty Name="ClientID" ColumnName="ClientID" />
@@ -498,7 +498,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Processes">
-            <EntityTypeMapping TypeName="HeimdallModels.tbl_Processes">
+            <EntityTypeMapping TypeName="HeimdallContext.tbl_Processes">
               <MappingFragment StoreEntitySet="tbl_Processes">
                 <ScalarProperty Name="ProcessID" ColumnName="ProcessID" />
                 <ScalarProperty Name="ClientID" ColumnName="ClientID" />
@@ -507,7 +507,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_ProcessInfo">
-            <EntityTypeMapping TypeName="HeimdallModels.tbl_ProcessInfo">
+            <EntityTypeMapping TypeName="HeimdallContext.tbl_ProcessInfo">
               <MappingFragment StoreEntitySet="tbl_ProcessInfo">
                 <ScalarProperty Name="ProcessInfoID" ColumnName="ProcessInfoID" />
                 <ScalarProperty Name="ProcessID" ColumnName="ProcessID" />

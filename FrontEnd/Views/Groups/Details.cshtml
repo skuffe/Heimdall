@@ -1,0 +1,29 @@
+﻿@model FrontEnd.Models.tbl_Groups
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>tbl_Groups</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.GroupID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.GroupID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.GroupName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.GroupName)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.GroupID  }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -11,7 +11,7 @@ namespace FrontEnd.Controllers
 {
     public class ClientsController : Controller
     {
-        private HeimdallContext db = new HeimdallContext();
+        private heimdallEntities db = new heimdallEntities();
 
         //
         // GET: /Clients/
@@ -118,6 +118,7 @@ namespace FrontEnd.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             tbl_Clients tbl_clients = db.tbl_Clients.Find(id);
+
             db.tbl_Clients.Remove(tbl_clients);
             db.SaveChanges();
             return RedirectToAction("Index");

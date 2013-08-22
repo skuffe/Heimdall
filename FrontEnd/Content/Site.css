@@ -328,6 +328,25 @@ aside {
     font-weight: 700;
 }
 
+/* Button Stuff */
+
+#button {
+  cursor: pointer;
+  font-weight: bold;
+}
+ 
+#toggleButton {
+  color: darkred;
+  font-weight: bold;
+  cursor: pointer;
+}
+ 
+#toggleButton.down {
+  color: green;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 /* login page */
 #loginForm {
     border-right: solid 2px #c8c8c8;
