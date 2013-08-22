@@ -11,13 +11,16 @@ namespace DataCollectionHost
         string dbAdr;
         string port;
         string dbName;
+        string user;
+        string pass;
 
         public ConfigReader(string path)
         {
             dbAdr = "";
             port = "";
             dbName = "";
-
+            user = "";
+            pass = "";
             readConfig(path);
         }
 
@@ -39,6 +42,10 @@ namespace DataCollectionHost
                         this.port = currLine.Split('=')[1];
                     else if (currLine.ToLower().Contains("dbname="))
                         this.dbName = currLine.Split('=')[1];
+                    else if (currLine.ToLower().Contains("user="))
+                        this.user = currLine.Split('=')[1];
+                    else if (currLine.ToLower().Contains("pass="))
+                        this.pass = currLine.Split('=')[1];
                 }
                 return true;
             }
@@ -62,6 +69,16 @@ namespace DataCollectionHost
         public string GetDBname()
         {
             return this.dbName;
+        }
+
+        public string GetUser()
+        {
+            return this.user;
+        }
+
+        public string getPass()
+        {
+            return this.pass;
         }
 
         #endregion

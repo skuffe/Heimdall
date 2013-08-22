@@ -22,16 +22,16 @@ namespace DataCollectionHost
         ConfigReader confReader;
         SqlConnector sqlConn;
 
-        public SysInfoCollector(SqlConnector sqlConn)
+        public SysInfoCollector(SqlConnector sqlConn, ConfigReader confReader)
         {
-            //confReader = new ConfigReader("path");
+            this.confReader = confReader;
             this.sqlConn = sqlConn;
         }
 
         public void ThreadWrapper()
         {
             DataTable clients = null;
-            Dictionary<string, string> types = null;
+            Dictionary<string, bool> types = null;
 
             while (true)
             {
@@ -46,22 +46,23 @@ namespace DataCollectionHost
                     {
                         foreach (DataRow row in clients.Rows)
                         {
-                            if (types[row["ClientTypeID"].ToString()] == "Client")
+                            if (types[row["ClientTypeID"].ToString()] == false)
                             {
-                                try { CollectFromClient(row["IPAddress"].ToString(), "2200",row["ClientID"].ToString()); }
+                                try { CollectFromClient(row["IPAddress"].ToString(), confReader.GetPort(),row["ClientID"].ToString()); }
                                 catch { setIsNotResponding(row["ClientID"].ToString(),row["IPAddress"].ToString()); }
                             }
-                            else if (types[row["ClientTypeID"].ToString()] == "SNMPdevice") //Change to check whether the IsSnmpDevice flag in the DB is set instead.
+                            else if (types[row["ClientTypeID"].ToString()] == true) //Change to check whether the IsSnmpDevice flag in the DB is set instead.
                             {
                                 try { CollectFromSNMP(row["IPAddress"].ToString()); }
-                                catch { /*Set as not responding*/ }
+                                catch { setIsNotResponding(row["ClientID"].ToString(), row["IPAddress"].ToString()); }
                             }
                         }
                     }
                 }
-                Thread.Sleep(60000);
+                Thread.Sleep(60000); 
             }
         }
+
 
         //Connect to DB to get list of clients
         private DataTable GetClients()
@@ -78,11 +79,12 @@ namespace DataCollectionHost
             
         }
 
+
         //Connect to DB to get list of clienttypes
-        private Dictionary<string, string> GetTypes()
+        private Dictionary<string, bool> GetTypes()
         {
             DataTable temp;
-            Dictionary<string, string> dictionary = new Dictionary<string,string>();
+            Dictionary<string, bool> dictionary = new Dictionary<string,bool>();
 
             sqlConn.openConnection();
 
@@ -93,13 +95,14 @@ namespace DataCollectionHost
 
                 foreach (DataRow row in temp.Rows)
                 {
-                    dictionary.Add(row["ClientTypeID"].ToString(), row["TypeName"].ToString());
+                    dictionary.Add(row["ClientTypeID"].ToString(), Boolean.Parse(row["IsSNMPDevice"].ToString()));
                 }
                 return dictionary;
             }
             catch{ return null; }
             finally{ sqlConn.closeConnection(); }
         }
+
 
         //Handles insertion to DB, when clients are not responding
         private void setIsNotResponding(string clientId, string ipAdr)
@@ -115,6 +118,7 @@ namespace DataCollectionHost
             sqlConn.executeInsertQuery("INSERT INTO tbl_ClientInfo(ClientID, TimeStamp, IsResponding) VALUES(@0,@1,@2);", dictionaryForInsert);
             sqlConn.closeConnection();
         }
+
 
         //Collects data from the client and inserts it into the DB in a parameterized fashion to avoid SQL-injections
         private void CollectFromClient(string ipAdr, string port, string clientId)

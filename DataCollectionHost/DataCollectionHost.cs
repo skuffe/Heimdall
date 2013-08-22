@@ -17,6 +17,7 @@ namespace DataCollectionHost
     public partial class DataCollectionHost : ServiceBase
     {
         SqlConnector sqlConn = new SqlConnector();
+        ConfigReader confReader = new ConfigReader("D:\\config.txt");
 
         public DataCollectionHost()
         {
@@ -29,13 +30,13 @@ namespace DataCollectionHost
             this.CanStop = true;
             this.CanShutdown = true;
 
-            sqlConn.setConnectionProperties("SQL01\\ODIN", "heimdall", "heimdall", "Silver44");
+            sqlConn.setConnectionProperties(confReader.GetDBaddress(), confReader.GetDBname(), confReader.GetUser(), confReader.getPass());
         }
 
         protected override void OnStart(string[] args)
         {
             //Creates the SystemInfo collector thread
-            SysInfoCollector infoCollector = new SysInfoCollector(sqlConn);
+            SysInfoCollector infoCollector = new SysInfoCollector(sqlConn, confReader);
             Thread thread = new Thread(infoCollector.ThreadWrapper);
 
             thread.IsBackground = true;
