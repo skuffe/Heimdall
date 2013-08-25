@@ -17,8 +17,8 @@ namespace FrontEnd.Models
         public int InterfaceInfoID { get; set; }
         public Nullable<int> InterfaceID { get; set; }
         public Nullable<System.DateTime> TimeStamp { get; set; }
-        public Nullable<int> IfInOctets { get; set; }
-        public Nullable<int> IfOutOctets { get; set; }
+        public Nullable<long> IfInOctets { get; set; }
+        public Nullable<long> IfOutOctets { get; set; }
         public Nullable<int> IfSpeed { get; set; }
         public Nullable<bool> IsUp { get; set; }
     

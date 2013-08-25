@@ -11,8 +11,6 @@ namespace FrontEnd.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class tbl_ClientTypes
     {
@@ -22,17 +20,8 @@ namespace FrontEnd.Models
         }
     
         public int ClientTypeID { get; set; }
-
-        [DisplayName("Type Name")]
-        [Required]
         public string TypeName { get; set; }
-
-        [DisplayName("Property List")]
-        [Required]
         public string PropertyList { get; set; }
-
-        [DisplayName("SNMP Device?")]
-        [Required]
         public Nullable<bool> IsSNMPDevice { get; set; }
     
         public virtual ICollection<tbl_Clients> tbl_Clients { get; set; }

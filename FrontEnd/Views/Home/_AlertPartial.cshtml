@@ -3,28 +3,33 @@
 @if (ViewBag.ErrorCount > 0) {
 <h4>Clients currently not responding</h4>
     
-<table>
+<table class="alert">
     <tr>
         <th>
-            Group
         </th>
         <th>
-            Type
+            @Html.DisplayNameFor(model => model.tbl_Groups.GroupName)
         </th>
         <th>
-            Hostname
+            @Html.DisplayNameFor(model => model.tbl_ClientTypes.TypeName)
         </th>
         <th>
-            IP Address
+            @Html.DisplayNameFor(model => model.HostName)
         </th>
         <th>
-            DownTime
+            @Html.DisplayNameFor(model => model.IPAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DownTime)
         </th>
     </tr>
 
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            <img src="~/Images/alert-icon.png" width="20" height="20"  />
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.tbl_Groups.GroupName)
         </td>
@@ -41,14 +46,16 @@
             @Html.DisplayFor(modelItem => item.DownTime)
         </td>
         <td>
-           @Html.ActionLink("Details", "Details", new { id=item.ClientID })
+            @Html.ActionLink("Stats", "../Clients/Details", new { id=item.ClientID })
         </td>
         <td>
-           @Html.ActionLink("Disable", "Disable", new { id=item.ClientID })
+            @Html.ActionLink("Disable Monitoring", "Disable", new { id=item.ClientID })
         </td>
     </tr>
 }
 </table>
 } else {
-<h4>All is well :-) Have a nice day!</h4>    
+    <h4>All is well - Have a nice day!</h4>
+    <br />
+    <img src="~/Images/happy.png" width="200" height="200" /> 
 }

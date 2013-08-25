@@ -58,7 +58,8 @@ namespace FrontEnd.Controllers
 
             foreach (var item in alertsRemove)
             {
-                alerts.RemoveAt(item);
+                if (alerts.Count > item) // prevent out of bounds.
+                    alerts.RemoveAt(item);
             }
 
             if (Request.IsAjaxRequest())
@@ -66,19 +67,6 @@ namespace FrontEnd.Controllers
             return View(alerts);
         }
 
-        // GET: /Clients/Details/#
-
-        public ActionResult Details(int id = 0)
-        {
-            tbl_Clients tbl_clients = db.tbl_Clients.Find(id);
-            if (tbl_clients == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tbl_clients);
-        }
-
-        //
         // POST: /Clients/Disable/#
 
         public ActionResult Disable(int id = 0)

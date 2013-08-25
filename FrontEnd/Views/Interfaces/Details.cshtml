@@ -1,36 +1,15 @@
-﻿@model FrontEnd.Models.tbl_Interfaces
+﻿@model FrontEnd.Models.InterfaceDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
+<h2>Stats for @Html.DisplayFor(model => model.tbl_interfaces.InterfaceName)</h2>
+<h5>Select a timespan on the graphs to "zoom in"</h5>
+<br />
 <fieldset>
-    <legend>tbl_Interfaces</legend>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.InterfaceID)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.InterfaceID)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.tbl_Clients.HostName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.tbl_Clients.HostName)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.InterfaceName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.InterfaceName)
+    <legend>Charts</legend>
+    <div id="interfacechart">
+        @Model.InterfaceChart
     </div>
 </fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.InterfaceID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

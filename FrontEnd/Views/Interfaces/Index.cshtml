@@ -12,9 +12,6 @@
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.InterfaceID)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.tbl_Clients.HostName)
         </th>
         <th>
@@ -25,9 +22,6 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.InterfaceID)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.tbl_Clients.HostName)
         </td>

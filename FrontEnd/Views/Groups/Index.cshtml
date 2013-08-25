@@ -12,19 +12,13 @@
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.GroupID)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.GroupName)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model) { if (item.GroupID != 1) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.GroupID)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.GroupName)
         </td>
@@ -34,6 +28,8 @@
             @Html.ActionLink("Delete", "Delete", new { id=item.GroupID  })
         </td>
     </tr>
+    }
 }
+
 
 </table>

@@ -6,6 +6,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FrontEnd.Models;
+using DotNet.Highcharts;
+using DotNet.Highcharts.Options;
+using DotNet.Highcharts.Enums;
+using DotNet.Highcharts.Helpers;
+using System.Drawing;
+using System.Diagnostics;
 
 namespace FrontEnd.Controllers
 {
@@ -32,7 +38,107 @@ namespace FrontEnd.Controllers
             {
                 return HttpNotFound();
             }
-            return View(tbl_interfaces);
+
+            var interfaceInfo = tbl_interfaces.tbl_InterfaceInfo;
+
+            object[,] ifInObject = new object[interfaceInfo.Count(), 2];
+            object[,] ifOutObject = new object[interfaceInfo.Count(), 2];
+
+            int index = -1;
+            long lastIfInOctets = 0;
+            long lastIfOutOctets = 0;
+            DateTime lastTimeStamp = interfaceInfo.FirstOrDefault().TimeStamp.Value;
+
+            foreach (var item in interfaceInfo)
+            {
+                    if (index != -1 && item.IsUp != false)
+                    {
+                        //ifInObject[index, 0] = lastTimeStamp.AddSeconds((item.TimeStamp.Value.Second) / 2); // get the average TimeStamp between current and last timestamps.
+                        //ifOutObject[index, 0] = lastTimeStamp.AddSeconds((item.TimeStamp.Value.Second) / 2); // same as above.
+                        ifInObject[index, 0] = item.TimeStamp.Value;
+                        ifOutObject[index, 0] = item.TimeStamp.Value;
+
+                        TimeSpan timeDiff = item.TimeStamp.Value - lastTimeStamp;
+                        long inDiff = item.IfInOctets.Value - lastIfInOctets;
+                        long outDiff = item.IfOutOctets.Value - lastIfOutOctets;
+                        int ifSpeed = item.IfSpeed.Value;
+
+                        if (item.IsUp == true)
+                        {
+                            ifInObject[index, 1] = ((inDiff * 8) / timeDiff.TotalSeconds) / ifSpeed;
+                            ifOutObject[index, 1] = ((outDiff * 8) / timeDiff.TotalSeconds) / ifSpeed;
+                        }
+                        else
+                        {
+                            ifInObject[index, 1] = null;
+                            ifOutObject[index, 1] = null;
+                        }
+                    }
+                    if (item.IsUp != false)
+                    {
+                        lastTimeStamp = item.TimeStamp.Value;
+                        lastIfInOctets = item.IfInOctets.Value;
+                        lastIfOutOctets = item.IfOutOctets.Value;
+                    }
+                    index++;
+            }
+
+            #region Interface Chart
+            Highcharts interfaceChart = new Highcharts("ifchart")
+                .InitChart(new Chart { ZoomType = ZoomTypes.X, DefaultSeriesType = ChartTypes.Area, SpacingRight = 30, SpacingLeft = 30, BackgroundColor = new BackColorOrGradient(Color.Transparent) })
+                .SetTitle(new Title { Text = "Interface Utilization" })
+                .SetSubtitle(new Subtitle { Text = "Shows interface utilization in %" })
+                .SetXAxis(new XAxis
+                {
+                    Type = AxisTypes.Datetime,
+                    Labels = new XAxisLabels
+                    {
+                        Align = HorizontalAligns.Center,
+                    },
+                })
+                .SetYAxis(new YAxis
+                {
+                    Title = new YAxisTitle { Text = "Interface Utilization (%)" },
+                    Labels = new YAxisLabels
+                    {
+                        Formatter = "function() { return (this.value) + '%'; }"
+                    },
+                    Min = 0
+                })
+                .SetTooltip(new Tooltip { Formatter = "function() { return '<b>'+ this.series.name +': '+ this.y +'%' +'</b><br/>'+ Highcharts.dateFormat('%e. %b - %H:%M:%S', this.x); }" })
+                .SetCredits(new Credits { Enabled = false })
+                .SetSeries(new[] { new Series
+                {
+                    Name = "Incoming",
+                    Data = new Data(ifInObject),
+                    PlotOptionsSeries = new PlotOptionsSeries
+                    {
+                        //Color = System.Drawing.ColorTranslator.FromHtml("#FF0000"),
+                        Marker = new PlotOptionsSeriesMarker
+                        {
+                            States = new PlotOptionsSeriesMarkerStates { Hover = new PlotOptionsSeriesMarkerStatesHover { Radius = 4 } },
+                            Enabled = false
+                        }
+                    },
+                    PlotOptionsArea = new PlotOptionsArea { FillOpacity = 0.5, PointStart = new PointStart(interfaceInfo.FirstOrDefault().TimeStamp.Value) }
+                }, new Series
+                {
+                    Name = "Outgoing",
+                    Data = new Data(ifOutObject),
+                    PlotOptionsSeries = new PlotOptionsSeries
+                    {
+                        //Color = System.Drawing.ColorTranslator.FromHtml("#FF0000"),
+                        Marker = new PlotOptionsSeriesMarker
+                        {
+                            States = new PlotOptionsSeriesMarkerStates { Hover = new PlotOptionsSeriesMarkerStatesHover { Radius = 4 } },
+                            Enabled = false
+                        }
+                    },
+                    PlotOptionsArea = new PlotOptionsArea { FillOpacity = 0.5, PointStart = new PointStart(interfaceInfo.FirstOrDefault().TimeStamp.Value) }
+                }  });
+            #endregion
+
+            return View(new InterfaceDetailsViewModel() { tbl_interfaces = tbl_interfaces, InterfaceChart = interfaceChart });
         }
 
         //

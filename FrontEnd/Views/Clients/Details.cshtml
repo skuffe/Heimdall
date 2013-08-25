@@ -1,50 +1,23 @@
-﻿@model FrontEnd.Models.tbl_Clients
+﻿@model FrontEnd.Models.ClientDetailsViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Stats";
 }
 
-<h2>Details</h2>
-
+<h2>Stats for @Html.DisplayFor(model => model.tbl_clients.HostName)</h2>
+<h5>Select a timespan on the graphs to "zoom in"</h5>
+<br />
 <fieldset>
-    <legend>tbl_Clients</legend>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.ClientID)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ClientID)
+    <legend>Charts</legend>
+    <div id="ramchart">
+        @Model.RAMChart
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.tbl_Groups.GroupName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.tbl_Groups.GroupName)
+    <div id="cpuchart">
+        @Model.CPUChart
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.tbl_ClientTypes.TypeName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.tbl_ClientTypes.TypeName)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.HostName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.HostName)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.IPAddress)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.IPAddress)
+    <div id="uptimechart">
+        @Model.UptimeChart
     </div>
 </fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { Model.ClientID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="HeimdallContext.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="HeimdallContext.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="HeimdallContextStoreContainer">
           <EntitySet Name="tbl_ClientInfo" EntityType="HeimdallContext.Store.tbl_ClientInfo" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tbl_Clients" EntityType="HeimdallContext.Store.tbl_Clients" store:Type="Tables" Schema="dbo" />
@@ -91,8 +91,8 @@
           <Property Name="InterfaceInfoID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="InterfaceID" Type="int" />
           <Property Name="TimeStamp" Type="datetime" />
-          <Property Name="IfInOctets" Type="int" />
-          <Property Name="IfOutOctets" Type="int" />
+          <Property Name="IfInOctets" Type="bigint" />
+          <Property Name="IfOutOctets" Type="bigint" />
           <Property Name="IfSpeed" Type="int" />
           <Property Name="IsUp" Type="bit" />
         </EntityType>
@@ -205,8 +205,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HeimdallContext" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -304,8 +303,8 @@
           <Property Name="InterfaceInfoID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="InterfaceID" Type="Int32" />
           <Property Name="TimeStamp" Type="DateTime" Precision="3" />
-          <Property Name="IfInOctets" Type="Int32" />
-          <Property Name="IfOutOctets" Type="Int32" />
+          <Property Name="IfInOctets" Type="Int64" />
+          <Property Name="IfOutOctets" Type="Int64" />
           <Property Name="IfSpeed" Type="Int32" />
           <Property Name="IsUp" Type="Boolean" />
           <NavigationProperty Name="tbl_Interfaces" Relationship="HeimdallContext.FK_tbl_InterfaceInfo_tbl_Interfaces" FromRole="tbl_InterfaceInfo" ToRole="tbl_Interfaces" />
@@ -530,7 +529,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>

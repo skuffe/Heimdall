@@ -13,16 +13,16 @@
     <fieldset>
         <legend>tbl_Interfaces</legend>
 
-        <div class="editor-label">
+        <div class="editor-label" hidden="hidden">
             @Html.LabelFor(model => model.InterfaceID)
         </div>
-        <div class="editor-field">
+        <div class="editor-field" hidden="hidden">
             @Html.EditorFor(model => model.InterfaceID)
             @Html.ValidationMessageFor(model => model.InterfaceID)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.ClientID, "tbl_Clients")
+            @Html.LabelFor(model => model.ClientID)
         </div>
         <div class="editor-field">
             @Html.DropDownList("ClientID", String.Empty)
