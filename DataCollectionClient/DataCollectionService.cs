@@ -50,7 +50,7 @@ namespace DataCollectionClient
                 if (drive.IsReady == true)
                     space[i] = drive.Name + ": " + drive.TotalFreeSpace + " / " + drive.TotalSize;
                 else
-                    space[i] = "Unable to calculate; device not ready";
+                    space[i] = "Unable to calculate, device not ready";
                 i++;
             }
 

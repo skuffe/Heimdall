@@ -51,76 +51,21 @@ namespace DataCollectionHost
                                 try { CollectFromClient(row["IPAddress"].ToString(), confReader.GetPort(),row["ClientID"].ToString()); }
                                 catch { setIsNotResponding(row["ClientID"].ToString(),row["IPAddress"].ToString()); }
                             }
-                            else if (types[row["ClientTypeID"].ToString()] == true) 
+                            else if (types[row["ClientTypeID"].ToString()] == true)
                             {
-                                try { CollectFromSNMP(row["IPAddress"].ToString()); }
+                                try { CollectFromSNMP(row["IPAddress"].ToString(), row["ClientID"].ToString()); }
                                 catch { setIsNotResponding(row["ClientID"].ToString(), row["IPAddress"].ToString()); }
                             }
                         }
                     }
                 }
-                Thread.Sleep(60000); 
+                Thread.Sleep(10000); 
             }
         }
 
 
-        //Connect to DB to get list of clients
-        private DataTable GetClientsFromDB()
-        {
-            sqlConn.openConnection();
-
-            try
-            {
-                sqlConn.executeGetQuery("SELECT * FROM tbl_Clients");
-                return sqlConn.getData();
-            }
-            catch{ return null; }
-            finally{ sqlConn.closeConnection(); }
-            
-        }
-
-
-        //Connect to DB to get list of clienttypes
-        private Dictionary<string, bool> GetTypes()
-        {
-            DataTable temp;
-            Dictionary<string, bool> dictionary = new Dictionary<string,bool>();
-
-            sqlConn.openConnection();
-
-            try
-            {
-                sqlConn.executeGetQuery("SELECT * FROM tbl_ClientTypes");
-                temp = sqlConn.getData();
-
-                foreach (DataRow row in temp.Rows)
-                {
-                    dictionary.Add(row["ClientTypeID"].ToString(), Boolean.Parse(row["IsSNMPDevice"].ToString()));
-                }
-                return dictionary;
-            }
-            catch{ return null; }
-            finally{ sqlConn.closeConnection(); }
-        }
-
-
-        //Handles insertion to DB, when clients are not responding
-        private void setIsNotResponding(string clientId, string ipAdr)
-        {
-
-            Dictionary<string, string> dictionaryForInsert = new Dictionary<string, string>()
-            {
-                {"@0",clientId},{"@1",DateTime.Now.ToString()},{"@2","0"}
-            };
-
-            //Store in DB
-            sqlConn.openConnection();
-            sqlConn.executeInsertQuery("INSERT INTO tbl_ClientInfo(ClientID, TimeStamp, IsResponding) VALUES(@0,@1,@2);", dictionaryForInsert);
-            sqlConn.closeConnection();
-        }
-
-
-        //Collects data from the client and inserts it into the DB in a parameterized fashion to avoid SQL-injections
+        #region Collect from Client
+        //Collect data from the client and inserts it into the DB in a parameterized fashion to avoid SQL-injections
         private void CollectFromClient(string ipAdr, string port, string clientId)
         {
             //Setup the end-point to the client to collect system data based on the IDataCollectionService
@@ -146,7 +91,7 @@ namespace DataCollectionHost
             //Creates the dictionary used by the executeInsertQuery method - which ensures parameterized insertion to the DB
             Dictionary<string, string> dictionaryForInsert = new Dictionary<string, string>()
             {
-                {"@0",clientId},{"@1",DateTime.Now.ToString()},{"@2",sysInfo.OsVersion},{"@3",diskSpace},{"@4",sysInfo.Uptime},{"@5",sysInfo.Ram},{"@6",sysInfo.Cpu},{"@7",sysInfo.PingToServer},{"@8","1"}
+                {"@0",clientId},{"@1",DateTime.Now.ToString()},{"@2",sysInfo.OsVersion},{"@3",diskSpace},{"@4",sysInfo.Uptime},{"@5",sysInfo.Ram},{"@6",sysInfo.Cpu},{"@7",sysInfo.PingToServer},{"@8","TRUE"}
             };
 
             //Store in DB
@@ -154,15 +99,64 @@ namespace DataCollectionHost
             sqlConn.executeInsertQuery("INSERT INTO tbl_ClientInfo(ClientID, TimeStamp, OSVersion, DiskSpace, UpTime, RAM, CPU, Ping, IsResponding) VALUES(@0,@1,@2,@3,@4,@5,@6,@7,@8);", dictionaryForInsert);
             sqlConn.closeConnection();
         }
+        #endregion
 
 
-        private void GetInterfacesFromDB()
+        #region Collect from SNMP
+        private DataTable GetInterfacesFromDB(string clientID)
         {
+            DataTable temp = new DataTable();
 
+            try
+            {
+                sqlConn.openConnection();
+                sqlConn.executeGetQuery("SELECT * FROM tbl_Interfaces WHERE ClientID ='" + clientID +"';");
+                temp = sqlConn.getData();
+                return temp;
+            }
+            catch { return null; }
+            finally { sqlConn.closeConnection(); }
         }
 
-        private void CollectFromSNMP(string ipAdr)
+
+        private void CollectFromSNMP(string ipAdr, string clientID)
         {
+            DataTable data = GetInterfacesFromDB(clientID);
+            List<string> interfaceList = new List<string>();
+            List<string> interfaceIDs = new List<string>();
+
+            foreach (DataRow row in data.Rows)
+            {
+                interfaceList.Add(row["InterfaceName"].ToString());
+                interfaceIDs.Add(row["InterfaceID"].ToString());
+            }
+
+            List<string> oidList = SendSNMPRequest("1.3.6.1.2.1.2.2.1.2", ipAdr, interfaceList);   //ifDescr - get the OIDs of the interfaces we want to monitor
+            List<string> ifSpeed = SendSNMPRequest("1.3.6.1.2.1.2.2.1.5", ipAdr, oidList);       //ifSpeed - get the speed of the interfaces listed for monitoring
+            List<string> ifOutOctets = SendSNMPRequest("1.3.6.1.2.1.2.2.1.10", ipAdr, oidList);   //ifInOctets - get the inOctets value for the interfaces listed
+            List<string> ifInOctets = SendSNMPRequest("1.3.6.1.2.1.2.2.1.16", ipAdr, oidList);  //ifOutOctets - get the outOctets value for the interfaces listed
+            List<string> ifOperStatus = SendSNMPRequest("1.3.6.1.2.1.2.2.1.8", ipAdr, oidList);  //ifOperStatus - get the operational status of the interface listed
+            List<string> ifAlias = SendSNMPRequest("1.3.6.1.2.1.31.1.1.1.18", ipAdr, oidList);   //ifAlias - get the alias/description of the interface listed
+
+            for (int i = 0; i < interfaceList.Count; i++)
+            {
+                Dictionary<string, string> dictionaryForInsert = new Dictionary<string, string>()
+                {
+                    {"@0",interfaceIDs[i]},{"@1",DateTime.Now.ToString()},{"@2",ifInOctets[i]},{"@3",ifOutOctets[i]},{"@4",ifSpeed[i]},{"@5",ifOperStatus[i]},{"@6",ifAlias[i]}
+                };
+
+                //Store in DB
+                sqlConn.openConnection();
+                sqlConn.executeInsertQuery("INSERT INTO tbl_InterfaceInfo(InterfaceID, TimeStamp, IfInOctets, IfOutOctets, IfSpeed, IsUp, IfAlias) VALUES(@0,@1,@2,@3,@4,@5,@6);", dictionaryForInsert);
+                sqlConn.closeConnection();
+            }
+        }
+
+
+        private List<string> SendSNMPRequest(string mib, string ipAdr, List<string> interfaces)
+        {
+            List<string> values = new List<string>();
+
             // SNMP community name
             OctetString community = new OctetString("heimdall");
 
@@ -184,7 +178,8 @@ namespace DataCollectionHost
             //Oid rootOid = new Oid("1.3.6.1.2.1.2.2.1.10");  //ifInOctets - Total amount of octets
             //Oid rootOid = new Oid("1.3.6.1.2.1.2.2.1.16");  //ifOutOctets - total amount of octets
             //Oid rootOid = new Oid("1.3.6.1.2.1.2.2.1.5");   //ifSpeed - total speed of the interface
-            Oid rootOid = new Oid("1.3.6.1.2.1.2.2.1.2");   //ifDescr - Name of the interface
+            //Oid rootOid = new Oid("1.3.6.1.2.1.2.2.1.2");   //ifDescr - Name of the interface
+            Oid rootOid = new Oid(mib);
 
             // This Oid represents last Oid returned by
             //  the SNMP agent
@@ -238,13 +233,14 @@ namespace DataCollectionHost
                         // Walk through returned variable bindings
                         foreach (Vb v in result.Pdu.VbList)
                         {
+                            if (interfaces.Contains(v.Value.ToString()))
+                                values.Add(v.Oid.ToString().Split('.').Last());
+                            else if (interfaces.Contains(v.Oid.ToString().Split('.').Last()))
+                                values.Add(v.Value.ToString());
+                            Console.WriteLine(v.Oid.ToString() + "  " + v.Value.ToString());
                             // Check that retrieved Oid is "child" of the root OID
                             if (rootOid.IsRootOf(v.Oid))
                             {
-                                Console.WriteLine("{0} ({1}): {2}",
-                                      v.Oid.ToString(),
-                                      SnmpConstants.GetTypeName(v.Value.Type),
-                                      v.Value.ToString());
                                 if (v.Value.Type == SnmpConstants.SMI_ENDOFMIBVIEW)
                                     lastOid = null;
                                 else
@@ -265,9 +261,64 @@ namespace DataCollectionHost
                 }
             }
             target.Close();
-            //request snmp trap from client
-            //listen for responsel
-            //process data
+
+            return values;
         }
+        #endregion
+
+
+        #region Shared
+        //Connect to DB to get list of clients
+        private DataTable GetClientsFromDB()
+        {
+            sqlConn.openConnection();
+
+            try
+            {
+                sqlConn.executeGetQuery("SELECT * FROM tbl_Clients");
+                return sqlConn.getData();
+            }
+            catch { return null; }
+            finally { sqlConn.closeConnection(); }
+        }
+
+
+        //Connect to DB to get list of clienttypes
+        private Dictionary<string, bool> GetTypes()
+        {
+            DataTable temp;
+            Dictionary<string, bool> dictionary = new Dictionary<string, bool>();
+
+            try
+            {
+                sqlConn.openConnection();
+                sqlConn.executeGetQuery("SELECT * FROM tbl_ClientTypes");
+                temp = sqlConn.getData();
+
+                foreach (DataRow row in temp.Rows)
+                {
+                    dictionary.Add(row["ClientTypeID"].ToString(), Boolean.Parse(row["IsSNMPDevice"].ToString()));
+                }
+                return dictionary;
+            }
+            catch { return null; }
+            finally { sqlConn.closeConnection(); }
+        }
+
+
+        //Handle insertion to DB, when clients are not responding
+        private void setIsNotResponding(string clientId, string ipAdr)
+        {
+            Dictionary<string, string> dictionaryForInsert = new Dictionary<string, string>()
+            {
+                {"@0",clientId},{"@1",DateTime.Now.ToString()},{"@2","FALSE"}
+            };
+
+            //Store in DB
+            sqlConn.openConnection();
+            sqlConn.executeInsertQuery("INSERT INTO tbl_ClientInfo(ClientID, TimeStamp, IsResponding) VALUES(@0,@1,@2);", dictionaryForInsert);
+            sqlConn.closeConnection();
+        }
+        #endregion
     }
 }
