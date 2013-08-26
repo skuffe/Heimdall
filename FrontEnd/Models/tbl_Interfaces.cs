@@ -11,6 +11,7 @@ namespace FrontEnd.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class tbl_Interfaces
     {
@@ -20,7 +21,9 @@ namespace FrontEnd.Models
         }
     
         public int InterfaceID { get; set; }
-        public Nullable<int> ClientID { get; set; }
+        [Required]
+        public int ClientID { get; set; }
+        [Required]
         public string InterfaceName { get; set; }
     
         public virtual tbl_Clients tbl_Clients { get; set; }

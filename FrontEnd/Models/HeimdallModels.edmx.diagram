@@ -4,22 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c1825037915d4caf8856b8da5126888d" Name="Diagram1">
-        <EntityTypeShape EntityType="HeimdallContext.tbl_ClientInfo" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="HeimdallContext.tbl_Clients" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="HeimdallContext.tbl_ClientTypes" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="HeimdallContext.tbl_Groups" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="HeimdallContext.tbl_InterfaceInfo" Width="1.5" PointX="7.5" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="HeimdallContext.tbl_Interfaces" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="HeimdallContext.tbl_Processes" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="HeimdallContext.tbl_ProcessInfo" Width="1.5" PointX="7.5" PointY="8.5" IsExpanded="true" />
-        <AssociationConnector Association="HeimdallContext.FK_tbl_ClientInfo_tbl_Clients" ManuallyRouted="false" />
-        <AssociationConnector Association="HeimdallContext.FK_tbl_Clients_tbl_ClientTypes" ManuallyRouted="false" />
-        <AssociationConnector Association="HeimdallContext.FK_tbl_Clients_tbl_Groups" ManuallyRouted="false" />
-        <AssociationConnector Association="HeimdallContext.FK_tbl_Interfaces_tbl_Clients" ManuallyRouted="false" />
-        <AssociationConnector Association="HeimdallContext.FK_tbl_Processes_tbl_Clients" ManuallyRouted="false" />
-        <AssociationConnector Association="HeimdallContext.FK_tbl_InterfaceInfo_tbl_Interfaces" ManuallyRouted="false" />
-        <AssociationConnector Association="HeimdallContext.FK_tbl_ProcessInfo_tbl_Processes" ManuallyRouted="false" />
+      <Diagram DiagramId="efd91fd013994760b0a742af85965f9b" Name="Diagram1">
+        <EntityTypeShape EntityType="heimdallModels.tbl_ClientInfo" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="heimdallModels.tbl_Clients" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="heimdallModels.tbl_ClientTypes" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="heimdallModels.tbl_Groups" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="heimdallModels.tbl_InterfaceInfo" Width="1.5" PointX="7.5" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="heimdallModels.tbl_Interfaces" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="heimdallModels.tbl_Processes" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="heimdallModels.tbl_ProcessInfo" Width="1.5" PointX="7.5" PointY="8.5" IsExpanded="true" />
+        <AssociationConnector Association="heimdallModels.FK_tbl_ClientInfo_tbl_Clients" ManuallyRouted="false" />
+        <AssociationConnector Association="heimdallModels.FK_tbl_Clients_tbl_ClientTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="heimdallModels.FK_tbl_Clients_tbl_Groups" ManuallyRouted="false" />
+        <AssociationConnector Association="heimdallModels.FK_tbl_Interfaces_tbl_Clients" ManuallyRouted="false" />
+        <AssociationConnector Association="heimdallModels.FK_tbl_Processes_tbl_Clients" ManuallyRouted="false" />
+        <AssociationConnector Association="heimdallModels.FK_tbl_InterfaceInfo_tbl_Interfaces" ManuallyRouted="false" />
+        <AssociationConnector Association="heimdallModels.FK_tbl_ProcessInfo_tbl_Processes" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

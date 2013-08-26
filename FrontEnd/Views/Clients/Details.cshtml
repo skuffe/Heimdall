@@ -5,6 +5,8 @@
 }
 
 <h2>Stats for @Html.DisplayFor(model => model.tbl_clients.HostName)</h2>
+
+@if (!ViewBag.NoData) {
 <h5>Select a timespan on the graphs to "zoom in"</h5>
 <br />
 <fieldset>
@@ -20,4 +22,11 @@
     <div id="uptimechart">
         @Model.UptimeChart
     </div>
+
+    <div id="pingchart">
+        @Model.PingChart
+    </div>
 </fieldset>
+} else {
+    <h5>No data available!</h5>
+}

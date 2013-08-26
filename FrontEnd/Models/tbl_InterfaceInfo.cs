@@ -15,12 +15,12 @@ namespace FrontEnd.Models
     public partial class tbl_InterfaceInfo
     {
         public int InterfaceInfoID { get; set; }
-        public Nullable<int> InterfaceID { get; set; }
-        public Nullable<System.DateTime> TimeStamp { get; set; }
+        public int InterfaceID { get; set; }
+        public System.DateTime TimeStamp { get; set; }
         public Nullable<long> IfInOctets { get; set; }
         public Nullable<long> IfOutOctets { get; set; }
         public Nullable<int> IfSpeed { get; set; }
-        public Nullable<bool> IsUp { get; set; }
+        public bool IsUp { get; set; }
     
         public virtual tbl_Interfaces tbl_Interfaces { get; set; }
     }

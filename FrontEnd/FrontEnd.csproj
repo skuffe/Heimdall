@@ -40,7 +40,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DotNet.Highcharts">
-      <HintPath>..\packages\DotNet.Highcharts.2.0\lib\DotNet.Highcharts.dll</HintPath>
+      <HintPath>References\DotNet.Highcharts.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
@@ -155,49 +155,50 @@
     <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InterfacesController.cs" />
+    <Compile Include="Controllers\ProcessesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ClientDetailsViewModel.cs" />
+    <Compile Include="Models\heimdallModels.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>heimdallModels.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\heimdallModels.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>heimdallModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\heimdallModels.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>heimdallModels.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\InterfaceDetailsViewModel.cs" />
-    <Compile Include="Models\HeimdallModels.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>HeimdallModels.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\HeimdallModels.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>HeimdallModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\HeimdallModels.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>HeimdallModels.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\tbl_ClientInfo.cs">
-      <DependentUpon>HeimdallModels.tt</DependentUpon>
+      <DependentUpon>heimdallModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Clients.cs">
-      <DependentUpon>HeimdallModels.tt</DependentUpon>
+      <DependentUpon>heimdallModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_ClientTypes.cs">
-      <DependentUpon>HeimdallModels.tt</DependentUpon>
+      <DependentUpon>heimdallModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Groups.cs">
-      <DependentUpon>HeimdallModels.tt</DependentUpon>
+      <DependentUpon>heimdallModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_InterfaceInfo.cs">
-      <DependentUpon>HeimdallModels.tt</DependentUpon>
+      <DependentUpon>heimdallModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Interfaces.cs">
-      <DependentUpon>HeimdallModels.tt</DependentUpon>
+      <DependentUpon>heimdallModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Processes.cs">
-      <DependentUpon>HeimdallModels.tt</DependentUpon>
+      <DependentUpon>heimdallModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_ProcessInfo.cs">
-      <DependentUpon>HeimdallModels.tt</DependentUpon>
+      <DependentUpon>heimdallModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\Tools.cs" />
@@ -259,26 +260,26 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <EntityDeploy Include="Models\HeimdallModels.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>HeimdallModels.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <Content Include="Images\alert-icon.png" />
     <Content Include="Images\happy.png" />
-    <Content Include="Models\HeimdallModels.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>HeimdallModels.edmx</DependentUpon>
-      <LastGenOutput>HeimdallModels.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\HeimdallModels.edmx.diagram">
-      <DependentUpon>HeimdallModels.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\HeimdallModels.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>HeimdallModels.edmx</DependentUpon>
-      <LastGenOutput>HeimdallModels.cs</LastGenOutput>
-    </Content>
     <Content Include="packages.config" />
+    <EntityDeploy Include="Models\heimdallModels.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>heimdallModels.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\heimdallModels.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>heimdallModels.edmx</DependentUpon>
+      <LastGenOutput>heimdallModels.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\heimdallModels.edmx.diagram">
+      <DependentUpon>heimdallModels.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\heimdallModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>heimdallModels.edmx</DependentUpon>
+      <LastGenOutput>heimdallModels.cs</LastGenOutput>
+    </Content>
     <None Include="Properties\PublishProfiles\WEB01.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\Highcharts-3.0.1\js\adapters\mootools-adapter.js" />
@@ -366,6 +367,11 @@
     <Content Include="Views\Interfaces\Create.cshtml" />
     <Content Include="Views\Interfaces\Edit.cshtml" />
     <Content Include="Views\Interfaces\Delete.cshtml" />
+    <Content Include="Views\Processes\Index.cshtml" />
+    <Content Include="Views\Processes\Details.cshtml" />
+    <Content Include="Views\Processes\Create.cshtml" />
+    <Content Include="Views\Processes\Edit.cshtml" />
+    <Content Include="Views\Processes\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

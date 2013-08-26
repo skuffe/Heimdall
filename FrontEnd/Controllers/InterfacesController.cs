@@ -43,30 +43,33 @@ namespace FrontEnd.Controllers
 
             object[,] ifInObject = new object[interfaceInfo.Count(), 2];
             object[,] ifOutObject = new object[interfaceInfo.Count(), 2];
+            ViewBag.NoData = false;
 
-            int index = -1;
-            long lastIfInOctets = 0;
-            long lastIfOutOctets = 0;
-            DateTime lastTimeStamp = interfaceInfo.FirstOrDefault().TimeStamp.Value;
-
-            foreach (var item in interfaceInfo)
+            if (interfaceInfo.Count > 0)
             {
+                int index = -1;
+                long lastIfInOctets = 0;
+                long lastIfOutOctets = 0;
+                DateTime lastTimeStamp = interfaceInfo.FirstOrDefault().TimeStamp;
+
+                foreach (var item in interfaceInfo)
+                {
                     if (index != -1 && item.IsUp != false)
                     {
                         //ifInObject[index, 0] = lastTimeStamp.AddSeconds((item.TimeStamp.Value.Second) / 2); // get the average TimeStamp between current and last timestamps.
                         //ifOutObject[index, 0] = lastTimeStamp.AddSeconds((item.TimeStamp.Value.Second) / 2); // same as above.
-                        ifInObject[index, 0] = item.TimeStamp.Value;
-                        ifOutObject[index, 0] = item.TimeStamp.Value;
+                        ifInObject[index, 0] = item.TimeStamp;
+                        ifOutObject[index, 0] = item.TimeStamp;
 
-                        TimeSpan timeDiff = item.TimeStamp.Value - lastTimeStamp;
+                        TimeSpan timeDiff = item.TimeStamp - lastTimeStamp;
                         long inDiff = item.IfInOctets.Value - lastIfInOctets;
                         long outDiff = item.IfOutOctets.Value - lastIfOutOctets;
                         int ifSpeed = item.IfSpeed.Value;
 
                         if (item.IsUp == true)
                         {
-                            ifInObject[index, 1] = ((inDiff * 8) / timeDiff.TotalSeconds) / ifSpeed;
-                            ifOutObject[index, 1] = ((outDiff * 8) / timeDiff.TotalSeconds) / ifSpeed;
+                            ifInObject[index, 1] = Math.Round(((inDiff * 8 * 100) / timeDiff.TotalSeconds) / ifSpeed, 2);
+                            ifOutObject[index, 1] = Math.Round(((outDiff * 8 * 100) / timeDiff.TotalSeconds) / ifSpeed, 2);
                         }
                         else
                         {
@@ -76,11 +79,17 @@ namespace FrontEnd.Controllers
                     }
                     if (item.IsUp != false)
                     {
-                        lastTimeStamp = item.TimeStamp.Value;
-                        lastIfInOctets = item.IfInOctets.Value;
-                        lastIfOutOctets = item.IfOutOctets.Value;
+                        lastTimeStamp = item.TimeStamp;
+                        lastIfInOctets = (long)item.IfInOctets;
+                        lastIfOutOctets = (long)item.IfOutOctets;
                     }
                     index++;
+                }
+            }
+            else
+            {
+                ViewBag.NoData = true;
+                return View(new InterfaceDetailsViewModel() { tbl_interfaces = tbl_interfaces, InterfaceChart = new Highcharts("ifchart") });
             }
 
             #region Interface Chart
@@ -120,7 +129,7 @@ namespace FrontEnd.Controllers
                             Enabled = false
                         }
                     },
-                    PlotOptionsArea = new PlotOptionsArea { FillOpacity = 0.5, PointStart = new PointStart(interfaceInfo.FirstOrDefault().TimeStamp.Value) }
+                    PlotOptionsArea = new PlotOptionsArea { FillOpacity = 0.5, PointStart = new PointStart(DateTime.Parse(ifInObject[0,0].ToString())) }
                 }, new Series
                 {
                     Name = "Outgoing",
@@ -134,7 +143,7 @@ namespace FrontEnd.Controllers
                             Enabled = false
                         }
                     },
-                    PlotOptionsArea = new PlotOptionsArea { FillOpacity = 0.5, PointStart = new PointStart(interfaceInfo.FirstOrDefault().TimeStamp.Value) }
+                    PlotOptionsArea = new PlotOptionsArea { FillOpacity = 0.5, PointStart = new PointStart(DateTime.Parse(ifOutObject[0,0].ToString())) }
                 }  });
             #endregion
 

@@ -1,0 +1,36 @@
+﻿@model FrontEnd.Models.tbl_Processes
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>tbl_Processes</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ProcessID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ProcessID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.tbl_Clients.HostName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.tbl_Clients.HostName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ProcessName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ProcessName)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

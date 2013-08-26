@@ -44,7 +44,7 @@ namespace FrontEnd.Controllers
                                .FirstOrDefault();
 
                     if (lastUp != null)
-                        item.DownTime = Tools.Tools.ToReadableString(DateTime.Now.Subtract(lastUp.TimeStamp.Value));
+                        item.DownTime = Tools.Tools.ToReadableString(DateTime.Now.Subtract(lastUp.TimeStamp));
                     else
                         item.DownTime = "N/A";
                 }
