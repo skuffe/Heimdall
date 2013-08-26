@@ -160,6 +160,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ClientDetailsViewModel.cs" />
+    <Compile Include="Models\ClientListViewModel.cs" />
     <Compile Include="Models\heimdallModels.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

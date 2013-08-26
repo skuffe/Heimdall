@@ -13,6 +13,7 @@ using DotNet.Highcharts.Enums;
 using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using FrontEnd.Tools;
 
 namespace FrontEnd.Controllers
 {
@@ -26,7 +27,35 @@ namespace FrontEnd.Controllers
         public ActionResult Index()
         {
             var tbl_clients = db.tbl_Clients.Include(t => t.tbl_ClientTypes).Include(t => t.tbl_Groups);
-            return View(tbl_clients.ToList());
+
+            // Check FTP for config files.
+            FtpConfig ftp = new FtpConfig { Server = "", Port = "", Username = "", Password = "" };
+            List<string> folderList = Tools.Tools.GetFileList(ftp);
+
+            foreach (var client in tbl_clients)
+            {
+                string search = client.HostName.Replace(".auh.lan", "");
+                var match = folderList.FirstOrDefault(s => s.Contains(search));
+
+                if (match != null)
+                {
+                    ftp.RemotePath = search;
+                    List<string> fileList = Tools.Tools.GetFileList(ftp);
+                    ftp.RemotePath = null;
+
+                    string[] data = new string[fileList.Count];
+                    int index = 0;
+                    foreach (var file in fileList)
+                    {
+                        data[index] = Tools.Tools.GetFile(ftp, file);
+                        index++;
+                    }
+
+                    ViewBag.Debug = data;
+                }
+            }
+
+            return View(tbl_clients);
         }
 
         //
