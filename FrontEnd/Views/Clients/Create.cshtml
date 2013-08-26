@@ -14,7 +14,7 @@
         <legend>tbl_Clients</legend>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.GroupID, "tbl_Groups")
+            @Html.LabelFor(model => model.GroupID, "Group")
         </div>
         <div class="editor-field">
             @Html.DropDownList("GroupID", String.Empty)
@@ -22,7 +22,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.ClientTypeID, "tbl_ClientTypes")
+            @Html.LabelFor(model => model.ClientTypeID)
         </div>
         <div class="editor-field">
             @Html.DropDownList("ClientTypeID", String.Empty)

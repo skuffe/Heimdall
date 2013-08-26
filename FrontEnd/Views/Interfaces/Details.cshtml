@@ -1,0 +1,15 @@
+﻿@model FrontEnd.Models.InterfaceDetailsViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Stats for @Html.DisplayFor(model => model.tbl_interfaces.InterfaceName)</h2>
+<h5>Select a timespan on the graphs to "zoom in"</h5>
+<br />
+<fieldset>
+    <legend>Charts</legend>
+    <div id="interfacechart">
+        @Model.InterfaceChart
+    </div>
+</fieldset>

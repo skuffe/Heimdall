@@ -328,6 +328,25 @@ aside {
     font-weight: 700;
 }
 
+/* Button Stuff */
+
+#button {
+  cursor: pointer;
+  font-weight: bold;
+}
+ 
+#toggleButton {
+  color: darkred;
+  font-weight: bold;
+  cursor: pointer;
+}
+ 
+#toggleButton.down {
+  color: green;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 /* login page */
 #loginForm {
     border-right: solid 2px #c8c8c8;
@@ -534,11 +553,16 @@ table {
     border: 0 none;
 }
 
+table.alert td {
+    color: red;
+}
+
 th {
     font-size: 1.2em;
     text-align: left;
     border: none 0px;
     padding-left: 0;
+    padding-right: 0.8em;
 }
 
     th a {

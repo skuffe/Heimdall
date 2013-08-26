@@ -11,10 +11,25 @@
             <hgroup class="title">
                 <h4>Statistics:</h4>
                 <h4>Total Clients: @ViewBag.ClientCount</h4>
-                <h4>TimeStamp: @ViewBag.Now</h4>
             </hgroup>
         </div>
     </section>
 }
 <h2>Alerts</h2>
+
+<div id="AlertDiv">
 @Html.Partial("_AlertPartial", Model)
+</div>
+
+<script type="text/javascript">
+   var autoRefreshInterval = 1000 * 5;   //mili seconds (set to 5 seconds)
+  
+    var refresh = function () {
+        $.post('@Url.Action("Index")', function (data) {
+            $('#AlertDiv').html(data);
+        })
+      setTimeout(refresh, autoRefreshInterval);
+    };
+ 
+    refresh();
+</script>
