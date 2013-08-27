@@ -11,6 +11,7 @@ namespace FrontEnd.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class tbl_ClientTypes
     {
@@ -20,9 +21,12 @@ namespace FrontEnd.Models
         }
     
         public int ClientTypeID { get; set; }
+        [Required]
         public string TypeName { get; set; }
+        [Required]
         public string PropertyList { get; set; }
-        public Nullable<bool> IsSNMPDevice { get; set; }
+        [Required]
+        public bool IsSNMPDevice { get; set; }
     
         public virtual ICollection<tbl_Clients> tbl_Clients { get; set; }
     }

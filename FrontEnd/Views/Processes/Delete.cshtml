@@ -1,0 +1,40 @@
+﻿@model FrontEnd.Models.tbl_Processes
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>tbl_Processes</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ProcessID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ProcessID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.tbl_Clients.HostName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.tbl_Clients.HostName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ProcessName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ProcessName)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

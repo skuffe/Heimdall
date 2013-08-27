@@ -11,6 +11,8 @@ namespace FrontEnd.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class tbl_Clients
     {
@@ -22,9 +24,14 @@ namespace FrontEnd.Models
         }
     
         public int ClientID { get; set; }
-        public Nullable<int> GroupID { get; set; }
-        public Nullable<int> ClientTypeID { get; set; }
+        [Required]
+        [DisplayName("Test")]
+        public int GroupID { get; set; }
+        [Required]
+        public int ClientTypeID { get; set; }
+        [Required]
         public string HostName { get; set; }
+        [Required]
         public string IPAddress { get; set; }
         public string DownTime { get; set; }
     

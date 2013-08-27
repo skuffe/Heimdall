@@ -11,6 +11,7 @@ namespace FrontEnd.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class tbl_Groups
     {
@@ -20,6 +21,7 @@ namespace FrontEnd.Models
         }
     
         public int GroupID { get; set; }
+        [Required]
         public string GroupName { get; set; }
     
         public virtual ICollection<tbl_Clients> tbl_Clients { get; set; }

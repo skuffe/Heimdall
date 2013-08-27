@@ -15,9 +15,9 @@ namespace FrontEnd.Models
     public partial class tbl_ProcessInfo
     {
         public int ProcessInfoID { get; set; }
-        public Nullable<int> ProcessID { get; set; }
-        public Nullable<System.DateTime> TimeStamp { get; set; }
-        public Nullable<bool> IsRunning { get; set; }
+        public int ProcessID { get; set; }
+        public System.DateTime TimeStamp { get; set; }
+        public bool IsRunning { get; set; }
     
         public virtual tbl_Processes tbl_Processes { get; set; }
     }
