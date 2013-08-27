@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
+using System.ServiceModel.Discovery;
 using System.ServiceProcess;
 using System.Text;
 

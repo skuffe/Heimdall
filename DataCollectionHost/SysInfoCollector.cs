@@ -9,6 +9,7 @@ using System.Threading;
 using SnmpSharpNet;
 using System.Data;
 using System.Net;
+using System.ServiceModel.Discovery;
 
 namespace DataCollectionHost
 {
@@ -62,7 +63,6 @@ namespace DataCollectionHost
                 Thread.Sleep(10000); 
             }
         }
-
 
         #region Collect from Client
         //Collect data from the client and inserts it into the DB in a parameterized fashion to avoid SQL-injections

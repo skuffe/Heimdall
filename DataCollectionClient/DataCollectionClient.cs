@@ -7,6 +7,7 @@ using System.Linq;
 using System.ServiceProcess;
 using System.Text;
 using System.ServiceModel;
+using System.ServiceModel.Discovery;
 
 namespace DataCollectionClient
 {
@@ -33,9 +34,9 @@ namespace DataCollectionClient
             Uri baseAddress = new Uri("net.tcp://" + host + ":" + port + "/DataCollectionService");
             NetTcpBinding binding = new NetTcpBinding();
 
-            serviceHost = new ServiceHost(typeof(DataCollectionService), baseAddress);
+            serviceHost = new ServiceHost(typeof(DataCollectionService), baseAddress);                
             serviceHost.AddServiceEndpoint(typeof(IDataCollectionService), binding, baseAddress);
-            
+
             serviceHost.Open();
         }
 
