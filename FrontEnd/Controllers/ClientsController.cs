@@ -17,6 +17,7 @@ using FrontEnd.Tools;
 
 namespace FrontEnd.Controllers
 {
+    [Authorize(Roles = "AUH\\Heimdall_view")]
     public class ClientsController : Controller
     {
         private heimdallEntities db = new heimdallEntities();
@@ -303,6 +304,7 @@ namespace FrontEnd.Controllers
         //
         // GET: /Clients/Create
 
+        [Authorize(Roles = "AUH\\Heimdall_admin")]
         public ActionResult Create()
         {
             ViewBag.ClientTypeID = new SelectList(db.tbl_ClientTypes, "ClientTypeID", "TypeName");
@@ -315,6 +317,7 @@ namespace FrontEnd.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "AUH\\Heimdall_admin")]
         public ActionResult Create(tbl_Clients tbl_clients)
         {
             if (ModelState.IsValid)
@@ -332,6 +335,7 @@ namespace FrontEnd.Controllers
         //
         // GET: /Clients/Edit/5
 
+        [Authorize(Roles = "AUH\\Heimdall_admin")]
         public ActionResult Edit(int id = 0)
         {
             tbl_Clients tbl_clients = db.tbl_Clients.Find(id);
@@ -349,6 +353,7 @@ namespace FrontEnd.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "AUH\\Heimdall_admin")]
         public ActionResult Edit(tbl_Clients tbl_clients)
         {
             if (ModelState.IsValid)
@@ -365,6 +370,7 @@ namespace FrontEnd.Controllers
         //
         // GET: /Clients/Delete/5
 
+        [Authorize(Roles = "AUH\\Heimdall_admin")]
         public ActionResult Delete(int id = 0)
         {
             tbl_Clients tbl_clients = db.tbl_Clients.Find(id);
@@ -380,6 +386,7 @@ namespace FrontEnd.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "AUH\\Heimdall_admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             tbl_Clients tbl_clients = db.tbl_Clients.Find(id);

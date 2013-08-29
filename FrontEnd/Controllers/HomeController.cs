@@ -10,7 +10,7 @@ using FrontEnd.Tools;
 
 namespace FrontEnd.Controllers
 {
-    //[Authorize(Roles = "AUH\\Heimdall_view")]
+    [Authorize(Roles = "AUH\\Heimdall_view")]
     public class HomeController : Controller
     {
         private heimdallEntities db = new heimdallEntities();
@@ -69,6 +69,7 @@ namespace FrontEnd.Controllers
 
         // POST: /Clients/Disable/#
 
+        [Authorize(Roles = "AUH\\Heimdall_admin")]
         public ActionResult Disable(int id = 0)
         {
             tbl_Clients tbl_clients = db.tbl_Clients.Find(id);
