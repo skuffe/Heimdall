@@ -29,31 +29,29 @@ namespace FrontEnd.Controllers
             var tbl_clients = db.tbl_Clients.Include(t => t.tbl_ClientTypes).Include(t => t.tbl_Groups);
 
             // Check FTP for config files.
-            FtpConfig ftp = new FtpConfig { Server = "", Port = "", Username = "", Password = "" };
-            List<string> folderList = Tools.Tools.GetFileList(ftp);
+            //FtpConfig ftp = new FtpConfig { Server = "10.0.10.11", Port = "21", Username = "config", Password = "Config1234" };
+            //List<string> folderList = Tools.Tools.GetFileList(ftp);
 
-            foreach (var client in tbl_clients)
-            {
-                string search = client.HostName.Replace(".auh.lan", "");
-                var match = folderList.FirstOrDefault(s => s.Contains(search));
+            //foreach (var client in tbl_clients)
+            //{
+            //    string search = client.HostName.Replace(".auh.lan", "").ToLower();
+            //    var match = folderList.FirstOrDefault(s => s.ToLower().Contains(search));
 
-                if (match != null)
-                {
-                    ftp.RemotePath = search;
-                    List<string> fileList = Tools.Tools.GetFileList(ftp);
-                    ftp.RemotePath = null;
+            //    if (match != null)
+            //    {
+            //        ftp.RemotePath = search;
+            //        List<string> fileList = Tools.Tools.GetFileList(ftp);
+            //        ftp.RemotePath = null;
 
-                    string[] data = new string[fileList.Count];
-                    int index = 0;
-                    foreach (var file in fileList)
-                    {
-                        data[index] = Tools.Tools.GetFile(ftp, file);
-                        index++;
-                    }
-
-                    ViewBag.Debug = data;
-                }
-            }
+            //        string[] data = new string[fileList.Count];
+            //        int index = 0;
+            //        foreach (var file in fileList)
+            //        {
+            //            data[index] = Tools.Tools.GetFile(ftp, file);
+            //            index++;
+            //        }
+            //    }
+            //}
 
             return View(tbl_clients);
         }

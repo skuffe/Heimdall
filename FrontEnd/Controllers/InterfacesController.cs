@@ -107,6 +107,7 @@ namespace FrontEnd.Controllers
                 })
                 .SetYAxis(new YAxis
                 {
+                    Max = 100,
                     Title = new YAxisTitle { Text = "Interface Utilization (%)" },
                     Labels = new YAxisLabels
                     {
