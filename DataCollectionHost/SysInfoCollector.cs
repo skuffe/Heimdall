@@ -10,6 +10,7 @@ using SnmpSharpNet;
 using System.Data;
 using System.Net;
 using System.ServiceModel.Discovery;
+using System.Net.Mail;
 
 namespace DataCollectionHost
 {
@@ -50,12 +51,20 @@ namespace DataCollectionHost
                             if (types[row["ClientTypeID"].ToString()] == false) //Checks whether the IsSNMPDevice flag in the tbl_clients table is set
                             {
                                 try { CollectFromClient(row["IPAddress"].ToString(), confReader.GetPort(),row["ClientID"].ToString()); }
-                                catch { setIsNotResponding(row["ClientID"].ToString(),row["IPAddress"].ToString()); }
+                                catch 
+                                { 
+                                    setIsNotResponding(row["ClientID"].ToString(),row["IPAddress"].ToString());
+                                    sendEmail(row["ClientID"].ToString());
+                                }
                             }
                             else if (types[row["ClientTypeID"].ToString()] == true)
                             {
                                 try { CollectFromSNMP(row["IPAddress"].ToString(), row["ClientID"].ToString()); }
-                                catch { setIsNotResponding(row["ClientID"].ToString(), row["IPAddress"].ToString()); }
+                                catch 
+                                { 
+                                    setIsNotResponding(row["ClientID"].ToString(), row["IPAddress"].ToString());
+                                    sendEmail(row["ClientID"].ToString());
+                                }
                             }
                         }
                     }
@@ -319,6 +328,44 @@ namespace DataCollectionHost
             sqlConn.executeInsertQuery("INSERT INTO tbl_ClientInfo(ClientID, TimeStamp, IsResponding) VALUES(@0,@1,@2);", dictionaryForInsert);
             sqlConn.closeConnection();
         }
+        private void sendEmail(string clientId)
+        {
+            DataTable dtable = new DataTable();
+            sqlConn.openConnection();
+            if (sqlConn.executeGetQuery("SELECT AlertSent, HostName FROM tbl_Clients WHERE ClientID=" + clientId + ";"))
+                dtable = sqlConn.getData();
+
+            foreach (DataRow row in dtable.Rows)
+            {
+                if (row["AlertSent"].ToString().Length <= 0 || DateTime.Now - DateTime.Parse(row["AlertSent"].ToString()) >= TimeSpan.FromMinutes(5))
+                {
+                    MailMessage mail = new MailMessage();
+
+                    mail.From = new System.Net.Mail.MailAddress("Heimdall.AUH@mercantec.dk");
+                    SmtpClient smtp = new SmtpClient();
+
+                    smtp.Host = "pasmtp.tele.dk";
+
+                    mail.To.Add(new MailAddress("ronni.gaba@gmail.com"));
+
+                    mail.IsBodyHtml = true;
+
+                    mail.Subject = "Warning! - Client not responding! ("+ row["HostName"] +")";
+
+                    smtp.Send(mail);
+                }
+            }
+
+            Dictionary<string, string> dictionaryForInsert = new Dictionary<string, string>()
+            {
+                {"@0",DateTime.Now.ToString()}
+            };
+
+            sqlConn.executeInsertQuery("INSERT INTO tbl_clients(AlertSent) VALUES(@0);", dictionaryForInsert);
+
+            sqlConn.closeConnection();
+        }
+
         #endregion
     }
 }

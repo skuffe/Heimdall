@@ -152,7 +152,7 @@ namespace DataCollectionHost
 
         public bool executeInsertQuery(string query, Dictionary<string, string> dictionary)
         {
-            //Executes a specified query against the associated connection.
+            //Executes a specified query against the associated connection. Uses Parameters to protect against SQL Injections.
             try
             {
                 DateTime time;
