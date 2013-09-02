@@ -15,6 +15,7 @@ using System.Diagnostics;
 
 namespace FrontEnd.Controllers
 {
+    [Authorize(Roles = "AUH\\Heimdall_view")]
     public class InterfacesController : Controller
     {
         private heimdallEntities db = new heimdallEntities();
@@ -107,6 +108,7 @@ namespace FrontEnd.Controllers
                 })
                 .SetYAxis(new YAxis
                 {
+                    Max = 100,
                     Title = new YAxisTitle { Text = "Interface Utilization (%)" },
                     Labels = new YAxisLabels
                     {
@@ -153,6 +155,7 @@ namespace FrontEnd.Controllers
         //
         // GET: /Interfaces/Create
 
+        [Authorize(Roles = "AUH\\Heimdall_admin")]
         public ActionResult Create()
         {
             ViewBag.ClientID = new SelectList(db.tbl_Clients, "ClientID", "HostName");
@@ -164,6 +167,7 @@ namespace FrontEnd.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "AUH\\Heimdall_admin")]
         public ActionResult Create(tbl_Interfaces tbl_interfaces)
         {
             if (ModelState.IsValid)
@@ -180,6 +184,7 @@ namespace FrontEnd.Controllers
         //
         // GET: /Interfaces/Edit/5
 
+        [Authorize(Roles = "AUH\\Heimdall_admin")]
         public ActionResult Edit(int id = 0)
         {
             tbl_Interfaces tbl_interfaces = db.tbl_Interfaces.Find(id);
@@ -196,6 +201,7 @@ namespace FrontEnd.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "AUH\\Heimdall_admin")]
         public ActionResult Edit(tbl_Interfaces tbl_interfaces)
         {
             if (ModelState.IsValid)
@@ -211,6 +217,7 @@ namespace FrontEnd.Controllers
         //
         // GET: /Interfaces/Delete/5
 
+        [Authorize(Roles = "AUH\\Heimdall_admin")]
         public ActionResult Delete(int id = 0)
         {
             tbl_Interfaces tbl_interfaces = db.tbl_Interfaces.Find(id);
@@ -226,6 +233,7 @@ namespace FrontEnd.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "AUH\\Heimdall_admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             tbl_Interfaces tbl_interfaces = db.tbl_Interfaces.Find(id);

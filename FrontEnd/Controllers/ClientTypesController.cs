@@ -9,6 +9,7 @@ using FrontEnd.Models;
 
 namespace FrontEnd.Controllers
 {
+    [Authorize(Roles = "AUH\\Heimdall_view")]
     public class ClientTypesController : Controller
     {
         private heimdallEntities db = new heimdallEntities();
@@ -37,6 +38,7 @@ namespace FrontEnd.Controllers
         //
         // GET: /ClientTypes/Create
 
+        [Authorize(Roles = "AUH\\Heimdall_admin")]
         public ActionResult Create()
         {
             return View();
@@ -47,6 +49,7 @@ namespace FrontEnd.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "AUH\\Heimdall_admin")]
         public ActionResult Create(tbl_ClientTypes tbl_clienttypes)
         {
             if (ModelState.IsValid)
@@ -62,6 +65,7 @@ namespace FrontEnd.Controllers
         //
         // GET: /ClientTypes/Edit/5
 
+        [Authorize(Roles = "AUH\\Heimdall_admin")]
         public ActionResult Edit(int id = 0)
         {
             tbl_ClientTypes tbl_clienttypes = db.tbl_ClientTypes.Find(id);
@@ -77,6 +81,7 @@ namespace FrontEnd.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "AUH\\Heimdall_admin")]
         public ActionResult Edit(tbl_ClientTypes tbl_clienttypes)
         {
             if (ModelState.IsValid)
@@ -91,6 +96,7 @@ namespace FrontEnd.Controllers
         //
         // GET: /ClientTypes/Delete/5
 
+        [Authorize(Roles = "AUH\\Heimdall_admin")]
         public ActionResult Delete(int id = 0)
         {
             tbl_ClientTypes tbl_clienttypes = db.tbl_ClientTypes.Find(id);
@@ -106,6 +112,7 @@ namespace FrontEnd.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "AUH\\Heimdall_admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             tbl_ClientTypes tbl_clienttypes = db.tbl_ClientTypes.Find(id);

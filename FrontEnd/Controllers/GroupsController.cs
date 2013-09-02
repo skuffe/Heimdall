@@ -9,6 +9,7 @@ using FrontEnd.Models;
 
 namespace FrontEnd.Controllers
 {
+    [Authorize(Roles = "AUH\\Heimdall_view")]
     public class GroupsController : Controller
     {
         private heimdallEntities db = new heimdallEntities();
@@ -37,6 +38,7 @@ namespace FrontEnd.Controllers
         //
         // GET: /Groups/Create
 
+        [Authorize(Roles = "AUH\\Heimdall_admin")]
         public ActionResult Create()
         {
             return View();
@@ -47,6 +49,7 @@ namespace FrontEnd.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "AUH\\Heimdall_admin")]
         public ActionResult Create(tbl_Groups tbl_groups)
         {
             if (ModelState.IsValid)
@@ -62,6 +65,7 @@ namespace FrontEnd.Controllers
         //
         // GET: /Groups/Edit/5
 
+        [Authorize(Roles = "AUH\\Heimdall_admin")]
         public ActionResult Edit(int id = 0)
         {
             tbl_Groups tbl_groups = db.tbl_Groups.Find(id);
@@ -77,6 +81,7 @@ namespace FrontEnd.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "AUH\\Heimdall_admin")]
         public ActionResult Edit(tbl_Groups tbl_groups)
         {
             if (ModelState.IsValid)
@@ -91,6 +96,7 @@ namespace FrontEnd.Controllers
         //
         // GET: /Groups/Delete/5
 
+        [Authorize(Roles = "AUH\\Heimdall_admin")]
         public ActionResult Delete(int id = 0)
         {
             tbl_Groups tbl_groups = db.tbl_Groups.Find(id);
@@ -106,6 +112,7 @@ namespace FrontEnd.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "AUH\\Heimdall_admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             tbl_Groups tbl_groups = db.tbl_Groups.Find(id);
