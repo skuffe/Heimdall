@@ -328,6 +328,7 @@ namespace DataCollectionHost
             sqlConn.executeInsertQuery("INSERT INTO tbl_ClientInfo(ClientID, TimeStamp, IsResponding) VALUES(@0,@1,@2);", dictionaryForInsert);
             sqlConn.closeConnection();
         }
+
         private void sendEmail(string clientId)
         {
             DataTable dtable = new DataTable();
@@ -337,7 +338,9 @@ namespace DataCollectionHost
 
             foreach (DataRow row in dtable.Rows)
             {
-                if (row["AlertSent"].ToString().Length <= 0 || DateTime.Now - DateTime.Parse(row["AlertSent"].ToString()) >= TimeSpan.FromMinutes(5))
+                DateTime dbTime = DateTime.ParseExact(row["AlertSent"].ToString(), "MM/dd/yyyy HH:mm:ss", null);
+
+                if (dbTime.ToString().Length <= 0 || DateTime.Now.Subtract(dbTime) >= TimeSpan.FromMinutes(5))
                 {
                     MailMessage mail = new MailMessage();
 
@@ -348,21 +351,14 @@ namespace DataCollectionHost
 
                     mail.To.Add(new MailAddress("ronni.gaba@gmail.com"));
 
-                    mail.IsBodyHtml = true;
-
                     mail.Subject = "Warning! - Client not responding! ("+ row["HostName"] +")";
 
                     smtp.Send(mail);
+
+                    sqlConn.executeUpdateQuery("UPDATE tbl_Clients SET AlertSent='" + DateTime.Now.ToString() + "' WHERE ClientID=" + clientId + ";");
+
                 }
             }
-
-            Dictionary<string, string> dictionaryForInsert = new Dictionary<string, string>()
-            {
-                {"@0",DateTime.Now.ToString()}
-            };
-
-            sqlConn.executeInsertQuery("INSERT INTO tbl_clients(AlertSent) VALUES(@0);", dictionaryForInsert);
-
             sqlConn.closeConnection();
         }
 

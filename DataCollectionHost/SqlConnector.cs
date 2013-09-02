@@ -181,6 +181,28 @@ namespace DataCollectionHost
             }
         }
 
+        public bool executeUpdateQuery(string query)
+        {
+            //Executes a specified query against the associated connection. Uses Parameters to protect against SQL Injections.
+            try
+            {
+                DateTime time;
+                SqlCommand cmd = new SqlCommand();
+
+                cmd.CommandText = query;
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = db_conn;
+                cmd.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
+        }
+
         public bool closeConnection()
         {
             //Tries to close the associated connection.
