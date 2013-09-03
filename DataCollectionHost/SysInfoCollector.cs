@@ -75,7 +75,12 @@ namespace DataCollectionHost
                         }
                     }
                 }
-                Thread.Sleep(10000); 
+                int sleepTimer;
+
+                if (!int.TryParse(confReader.getCollectTime(), out sleepTimer))
+                    sleepTimer = 30000;
+
+                Thread.Sleep(sleepTimer); 
             }
         }
 
@@ -346,38 +351,52 @@ namespace DataCollectionHost
         }
 
         private void sendEmail(string clientId)
-        {/*
+        {
             DataTable dtable = new DataTable();
             sqlConn.openConnection();
             if (sqlConn.executeGetQuery("SELECT AlertSent, HostName FROM tbl_Clients WHERE ClientID=" + clientId + ";"))
                 dtable = sqlConn.getData();
 
+
             foreach (DataRow row in dtable.Rows)
             {
-                DateTime dbTime = DateTime.ParseExact(row["AlertSent"].ToString(), "MM/dd/yyyy HH:mm:ss", null);
+                DateTime dbTime;
 
-                if (dbTime.ToString().Length <= 0 || DateTime.Now.Subtract(dbTime) >= TimeSpan.FromMinutes(5))
+                if (row["AlertSent"] != null && row["AlertSent"].ToString() != "")
                 {
-                    MailMessage mail = new MailMessage();
+                    EventLog.WriteEntry("Sendmail - if", row["AlertSent"].ToString());
+                     dbTime = DateTime.ParseExact(row["AlertSent"].ToString(), "MM/dd/yyyy HH:mm:ss", null);
 
-                    mail.From = new System.Net.Mail.MailAddress("Heimdall.AUH@mercantec.dk");
-                    SmtpClient smtp = new SmtpClient();
+                    if (dbTime.ToString().Length <= 0 || DateTime.Now.Subtract(dbTime) >= TimeSpan.FromMinutes(5))
+                    {
+                        EventLog.WriteEntry("Sendmail - if-if", "");
+                        MailMessage mail = new MailMessage();
 
-                    smtp.Host = "pasmtp.tele.dk";
+                        mail.From = new System.Net.Mail.MailAddress("Heimdall.AUH@mercantec.dk");
+                        SmtpClient smtp = new SmtpClient();
 
-                    mail.To.Add(new MailAddress("ronni.gaba@gmail.com"));
+                        smtp.Host = "pasmtp.tele.dk";
 
-                    mail.Subject = "Warning! - Client not responding! ("+ row["HostName"] +")";
+                        mail.To.Add(new MailAddress("ronni.gaba@gmail.com"));
 
-                    smtp.Send(mail);
+                        mail.Subject = "Warning! - Client not responding! ("+ row["HostName"] +")";
 
-                    sqlConn.executeUpdateQuery("UPDATE tbl_Clients SET AlertSent='" + DateTime.Now.ToString() + "' WHERE ClientID=" + clientId + ";");
+                        smtp.Send(mail);
 
+                        sqlConn.executeUpdateQuery("UPDATE tbl_Clients SET AlertSent='" + DateTime.Now.ToString() + "' WHERE ClientID=" + clientId + ";");
+                    }
                 }
-            }
-            sqlConn.closeConnection();*/
-        }
+                else
+                {
+                    EventLog.WriteEntry("Sendmail - Else", "");
+                    dbTime = DateTime.Now;
+                    sqlConn.executeUpdateQuery("UPDATE tbl_Clients SET AlertSent='" + DateTime.Now.ToString() + "' WHERE ClientID=" + clientId + ";");
+                }
 
+
+            }
+            sqlConn.closeConnection();
+        }
         #endregion
     }
 }

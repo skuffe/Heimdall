@@ -14,6 +14,7 @@ namespace DataCollectionHost
         string user;
         string pass;
         string comName;
+        string collectTime;
 
         public ConfigReader(string path)
         {
@@ -23,6 +24,7 @@ namespace DataCollectionHost
             user = "";
             pass = "";
             comName = "";
+            collectTime = "";
             readConfig(path);
         }
 
@@ -50,6 +52,8 @@ namespace DataCollectionHost
                         this.pass = currLine.Split('=')[1];
                     else if (currLine.ToLower().Contains("comname="))
                         this.comName = currLine.Split('=')[1];
+                    else if (currLine.ToLower().Contains("collecttime="))
+                        this.collectTime = currLine.Split('=')[1];
                 }
                 return true;
             }
@@ -90,6 +94,10 @@ namespace DataCollectionHost
             return this.comName;
         }
 
+        public string getCollectTime()
+        {
+            return this.collectTime;
+        }
         #endregion
     }
 }
