@@ -51,18 +51,24 @@ namespace DataCollectionHost
                             if (types[row["ClientTypeID"].ToString()] == false) //Checks whether the IsSNMPDevice flag in the tbl_clients table is set
                             {
                                 try { CollectFromClient(row["IPAddress"].ToString(), confReader.GetPort(),row["ClientID"].ToString()); }
-                                catch 
+                                catch (Exception e)
                                 { 
                                     setIsNotResponding(row["ClientID"].ToString(),row["IPAddress"].ToString());
+                                    EventLog.WriteEntry("ERROR! DataCollectionHost - Client", e.ToString());
                                     sendEmail(row["ClientID"].ToString());
                                 }
                             }
                             else if (types[row["ClientTypeID"].ToString()] == true)
                             {
-                                try { CollectFromSNMP(row["IPAddress"].ToString(), row["ClientID"].ToString()); }
-                                catch 
+                                try 
+                                { 
+                                    CollectFromSNMP(row["IPAddress"].ToString(), row["ClientID"].ToString());
+                                    setIsResponding(row["ClientID"].ToString(), row["IPAddress"].ToString());
+                                }
+                                catch (Exception e)
                                 { 
                                     setIsNotResponding(row["ClientID"].ToString(), row["IPAddress"].ToString());
+                                    EventLog.WriteEntry("ERROR! DataCollectionHost - SNMP", e.ToString());
                                     sendEmail(row["ClientID"].ToString());
                                 }
                             }
@@ -231,9 +237,7 @@ namespace DataCollectionHost
                     if (result.Pdu.ErrorStatus != 0)
                     {
                         // agent reported an error with the request
-                        Console.WriteLine("Error in SNMP reply. Error {0} index {1}",
-                            result.Pdu.ErrorStatus,
-                            result.Pdu.ErrorIndex);
+                        EventLog.WriteEntry("DataCollectionHost", "Error in SNMP response");
                         lastOid = null;
                         break;
                     }
@@ -266,11 +270,10 @@ namespace DataCollectionHost
                 }
                 else
                 {
-                    Console.WriteLine("No response received from SNMP agent.");
+                    EventLog.WriteEntry("DataCollectionHost", "No reply received from SNMP client");
                 }
             }
             target.Close();
-
             return values;
         }
         #endregion
@@ -315,6 +318,19 @@ namespace DataCollectionHost
         }
 
 
+        private void setIsResponding(string clientId, string ipAdr)
+        {
+            Dictionary<string, string> dictionaryForInsert = new Dictionary<string, string>()
+            {
+                {"@0",clientId},{"@1",DateTime.Now.ToString()},{"@2","True"}
+            };
+
+            //Store in DB
+            sqlConn.openConnection();
+            sqlConn.executeInsertQuery("INSERT INTO tbl_ClientInfo(ClientID, TimeStamp, IsResponding) VALUES(@0,@1,@2);", dictionaryForInsert);
+            sqlConn.closeConnection();
+        }
+
         //Handle insertion to DB, when clients are not responding
         private void setIsNotResponding(string clientId, string ipAdr)
         {
@@ -330,7 +346,7 @@ namespace DataCollectionHost
         }
 
         private void sendEmail(string clientId)
-        {
+        {/*
             DataTable dtable = new DataTable();
             sqlConn.openConnection();
             if (sqlConn.executeGetQuery("SELECT AlertSent, HostName FROM tbl_Clients WHERE ClientID=" + clientId + ";"))
@@ -359,7 +375,7 @@ namespace DataCollectionHost
 
                 }
             }
-            sqlConn.closeConnection();
+            sqlConn.closeConnection();*/
         }
 
         #endregion
