@@ -364,12 +364,10 @@ namespace DataCollectionHost
 
                 if (row["AlertSent"] != null && row["AlertSent"].ToString() != "")
                 {
-                    EventLog.WriteEntry("Sendmail - if", row["AlertSent"].ToString());
                      dbTime = DateTime.ParseExact(row["AlertSent"].ToString(), "MM/dd/yyyy HH:mm:ss", null);
 
                     if (dbTime.ToString().Length <= 0 || DateTime.Now.Subtract(dbTime) >= TimeSpan.FromMinutes(5))
                     {
-                        EventLog.WriteEntry("Sendmail - if-if", "");
                         MailMessage mail = new MailMessage();
 
                         mail.From = new System.Net.Mail.MailAddress("Heimdall.AUH@mercantec.dk");
@@ -388,7 +386,6 @@ namespace DataCollectionHost
                 }
                 else
                 {
-                    EventLog.WriteEntry("Sendmail - Else", "");
                     dbTime = DateTime.Now;
                     sqlConn.executeUpdateQuery("UPDATE tbl_Clients SET AlertSent='" + DateTime.Now.ToString() + "' WHERE ClientID=" + clientId + ";");
                 }
