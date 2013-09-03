@@ -28,7 +28,7 @@ namespace DataCollectionClient
 
         protected override void OnStart(string[] args)
         {
-            string host = "localhost";
+            string host = "0.0.0.0";
             string port = "2200";
 
             Uri baseAddress = new Uri("net.tcp://" + host + ":" + port + "/DataCollectionService");

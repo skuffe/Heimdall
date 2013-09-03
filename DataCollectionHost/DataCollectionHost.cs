@@ -17,7 +17,7 @@ namespace DataCollectionHost
     public partial class DataCollectionHost : ServiceBase
     {
         SqlConnector sqlConn = new SqlConnector();
-        ConfigReader confReader = new ConfigReader("D:\\config.txt");
+        ConfigReader confReader = new ConfigReader("C:\\config.txt");
 
         public DataCollectionHost()
         {

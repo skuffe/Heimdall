@@ -10,6 +10,7 @@ using SnmpSharpNet;
 using System.Data;
 using System.Net;
 using System.ServiceModel.Discovery;
+using System.Net.Mail;
 
 namespace DataCollectionHost
 {
@@ -50,17 +51,36 @@ namespace DataCollectionHost
                             if (types[row["ClientTypeID"].ToString()] == false) //Checks whether the IsSNMPDevice flag in the tbl_clients table is set
                             {
                                 try { CollectFromClient(row["IPAddress"].ToString(), confReader.GetPort(),row["ClientID"].ToString()); }
-                                catch { setIsNotResponding(row["ClientID"].ToString(),row["IPAddress"].ToString()); }
+                                catch (Exception e)
+                                { 
+                                    setIsNotResponding(row["ClientID"].ToString(),row["IPAddress"].ToString());
+                                    EventLog.WriteEntry("ERROR! DataCollectionHost - Client", e.ToString());
+                                    sendEmail(row["ClientID"].ToString());
+                                }
                             }
                             else if (types[row["ClientTypeID"].ToString()] == true)
                             {
-                                try { CollectFromSNMP(row["IPAddress"].ToString(), row["ClientID"].ToString()); }
-                                catch { setIsNotResponding(row["ClientID"].ToString(), row["IPAddress"].ToString()); }
+                                try 
+                                { 
+                                    CollectFromSNMP(row["IPAddress"].ToString(), row["ClientID"].ToString());
+                                    setIsResponding(row["ClientID"].ToString(), row["IPAddress"].ToString());
+                                }
+                                catch (Exception e)
+                                { 
+                                    setIsNotResponding(row["ClientID"].ToString(), row["IPAddress"].ToString());
+                                    EventLog.WriteEntry("ERROR! DataCollectionHost - SNMP", e.ToString());
+                                    sendEmail(row["ClientID"].ToString());
+                                }
                             }
                         }
                     }
                 }
-                Thread.Sleep(10000); 
+                int sleepTimer;
+
+                if (!int.TryParse(confReader.getCollectTime(), out sleepTimer))
+                    sleepTimer = 30000;
+
+                Thread.Sleep(sleepTimer); 
             }
         }
 
@@ -222,9 +242,7 @@ namespace DataCollectionHost
                     if (result.Pdu.ErrorStatus != 0)
                     {
                         // agent reported an error with the request
-                        Console.WriteLine("Error in SNMP reply. Error {0} index {1}",
-                            result.Pdu.ErrorStatus,
-                            result.Pdu.ErrorIndex);
+                        EventLog.WriteEntry("DataCollectionHost", "Error in SNMP response");
                         lastOid = null;
                         break;
                     }
@@ -257,11 +275,10 @@ namespace DataCollectionHost
                 }
                 else
                 {
-                    Console.WriteLine("No response received from SNMP agent.");
+                    EventLog.WriteEntry("DataCollectionHost", "No reply received from SNMP client");
                 }
             }
             target.Close();
-
             return values;
         }
         #endregion
@@ -306,6 +323,19 @@ namespace DataCollectionHost
         }
 
 
+        private void setIsResponding(string clientId, string ipAdr)
+        {
+            Dictionary<string, string> dictionaryForInsert = new Dictionary<string, string>()
+            {
+                {"@0",clientId},{"@1",DateTime.Now.ToString()},{"@2","True"}
+            };
+
+            //Store in DB
+            sqlConn.openConnection();
+            sqlConn.executeInsertQuery("INSERT INTO tbl_ClientInfo(ClientID, TimeStamp, IsResponding) VALUES(@0,@1,@2);", dictionaryForInsert);
+            sqlConn.closeConnection();
+        }
+
         //Handle insertion to DB, when clients are not responding
         private void setIsNotResponding(string clientId, string ipAdr)
         {
@@ -317,6 +347,51 @@ namespace DataCollectionHost
             //Store in DB
             sqlConn.openConnection();
             sqlConn.executeInsertQuery("INSERT INTO tbl_ClientInfo(ClientID, TimeStamp, IsResponding) VALUES(@0,@1,@2);", dictionaryForInsert);
+            sqlConn.closeConnection();
+        }
+
+        private void sendEmail(string clientId)
+        {
+            DataTable dtable = new DataTable();
+            sqlConn.openConnection();
+            if (sqlConn.executeGetQuery("SELECT AlertSent, HostName FROM tbl_Clients WHERE ClientID=" + clientId + ";"))
+                dtable = sqlConn.getData();
+
+
+            foreach (DataRow row in dtable.Rows)
+            {
+                DateTime dbTime;
+
+                if (row["AlertSent"] != null && row["AlertSent"].ToString() != "")
+                {
+                     dbTime = DateTime.ParseExact(row["AlertSent"].ToString(), "MM/dd/yyyy HH:mm:ss", null);
+
+                    if (dbTime.ToString().Length <= 0 || DateTime.Now.Subtract(dbTime) >= TimeSpan.FromMinutes(5))
+                    {
+                        MailMessage mail = new MailMessage();
+
+                        mail.From = new System.Net.Mail.MailAddress("Heimdall.AUH@mercantec.dk");
+                        SmtpClient smtp = new SmtpClient();
+
+                        smtp.Host = "pasmtp.tele.dk";
+
+                        mail.To.Add(new MailAddress("ronni.gaba@gmail.com"));
+
+                        mail.Subject = "Warning! - Client not responding! ("+ row["HostName"] +")";
+
+                        smtp.Send(mail);
+
+                        sqlConn.executeUpdateQuery("UPDATE tbl_Clients SET AlertSent='" + DateTime.Now.ToString() + "' WHERE ClientID=" + clientId + ";");
+                    }
+                }
+                else
+                {
+                    dbTime = DateTime.Now;
+                    sqlConn.executeUpdateQuery("UPDATE tbl_Clients SET AlertSent='" + DateTime.Now.ToString() + "' WHERE ClientID=" + clientId + ";");
+                }
+
+
+            }
             sqlConn.closeConnection();
         }
         #endregion
