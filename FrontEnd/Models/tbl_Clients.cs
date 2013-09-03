@@ -34,6 +34,7 @@ namespace FrontEnd.Models
         [Required]
         public string IPAddress { get; set; }
         public string DownTime { get; set; }
+        public Nullable<System.DateTime> AlertSent { get; set; }
     
         public virtual ICollection<tbl_ClientInfo> tbl_ClientInfo { get; set; }
         public virtual tbl_ClientTypes tbl_ClientTypes { get; set; }

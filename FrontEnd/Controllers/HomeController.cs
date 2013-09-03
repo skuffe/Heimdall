@@ -34,7 +34,7 @@ namespace FrontEnd.Controllers
                 {
                     if (item.tbl_Groups.GroupID == 1)
                     {
-                        alertsRemove.Add(alerts.IndexOf(item));
+                        alertsRemove.Add(item.ClientID);
                         continue;
                     }
 
@@ -50,7 +50,7 @@ namespace FrontEnd.Controllers
                 }
                 else
                 {
-                    alertsRemove.Add(alerts.IndexOf(item));
+                    alertsRemove.Add(item.ClientID);
                     continue;
                 }
                 ViewBag.ErrorCount++;
@@ -58,8 +58,7 @@ namespace FrontEnd.Controllers
 
             foreach (var item in alertsRemove)
             {
-                if (alerts.Count > item) // prevent out of bounds.
-                    alerts.RemoveAt(item);
+                alerts.Remove(alerts.Where(m => m.ClientID == item).FirstOrDefault());
             }
 
             if (Request.IsAjaxRequest())

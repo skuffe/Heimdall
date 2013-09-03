@@ -21,6 +21,7 @@ namespace FrontEnd.Models
         public Nullable<long> IfOutOctets { get; set; }
         public Nullable<int> IfSpeed { get; set; }
         public bool IsUp { get; set; }
+        public string IfAlias { get; set; }
     
         public virtual tbl_Interfaces tbl_Interfaces { get; set; }
     }

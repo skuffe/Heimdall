@@ -46,7 +46,7 @@ namespace FrontEnd.Controllers
             object[,] ifOutObject = new object[interfaceInfo.Count(), 2];
             ViewBag.NoData = false;
 
-            if (interfaceInfo.Count > 0)
+            if (interfaceInfo.Count > 1)
             {
                 int index = -1;
                 long lastIfInOctets = 0;
@@ -158,7 +158,7 @@ namespace FrontEnd.Controllers
         [Authorize(Roles = "AUH\\Heimdall_admin")]
         public ActionResult Create()
         {
-            ViewBag.ClientID = new SelectList(db.tbl_Clients, "ClientID", "HostName");
+            ViewBag.ClientID = new SelectList(db.tbl_Clients.Where(m => m.tbl_ClientTypes.IsSNMPDevice == true) , "ClientID", "HostName");
             return View();
         }
 
@@ -177,7 +177,7 @@ namespace FrontEnd.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ClientID = new SelectList(db.tbl_Clients, "ClientID", "HostName", tbl_interfaces.ClientID);
+            ViewBag.ClientID = new SelectList(db.tbl_Clients.Where(m => m.tbl_ClientTypes.IsSNMPDevice == true), "ClientID", "HostName", tbl_interfaces.ClientID);
             return View(tbl_interfaces);
         }
 
@@ -192,7 +192,7 @@ namespace FrontEnd.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ClientID = new SelectList(db.tbl_Clients, "ClientID", "HostName", tbl_interfaces.ClientID);
+            ViewBag.ClientID = new SelectList(db.tbl_Clients.Where(m => m.tbl_ClientTypes.IsSNMPDevice == true), "ClientID", "HostName", tbl_interfaces.ClientID);
             return View(tbl_interfaces);
         }
 
@@ -210,7 +210,7 @@ namespace FrontEnd.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ClientID = new SelectList(db.tbl_Clients, "ClientID", "HostName", tbl_interfaces.ClientID);
+            ViewBag.ClientID = new SelectList(db.tbl_Clients.Where(m => m.tbl_ClientTypes.IsSNMPDevice == true), "ClientID", "HostName", tbl_interfaces.ClientID);
             return View(tbl_interfaces);
         }
 

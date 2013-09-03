@@ -75,7 +75,7 @@ namespace FrontEnd.Controllers
             object[,] pingObject = new object[clientInfo.Count(), 2];
             ViewBag.NoData = false;
 
-            if (clientInfo.Count > 0)
+            if (clientInfo.Count > 0 && tbl_clients.tbl_ClientTypes.IsSNMPDevice == false)
             {
                 int index = 0;
                 foreach (var item in clientInfo)
@@ -84,7 +84,7 @@ namespace FrontEnd.Controllers
                     cpuObject[index, 0] = item.TimeStamp;
                     uptimeObject[index, 0] = item.TimeStamp;
                     pingObject[index, 0] = item.TimeStamp;
-                    if (item.IsResponding == true)
+                    if (item.IsResponding == true && item.tbl_Clients.tbl_ClientTypes.IsSNMPDevice == false)
                     {
                         ramObject[index, 1] = Convert.ToInt32(new String(item.RAM.Where(Char.IsDigit).ToArray()));
                         pingObject[index, 1] = Convert.ToInt32(new String(item.Ping.Where(Char.IsDigit).ToArray()));
@@ -304,7 +304,7 @@ namespace FrontEnd.Controllers
         //
         // GET: /Clients/Create
 
-        [Authorize(Roles = "AUH\\Heimdall_admin")]
+        //[Authorize(Roles = "AUH\\Heimdall_admin")]
         public ActionResult Create()
         {
             ViewBag.ClientTypeID = new SelectList(db.tbl_ClientTypes, "ClientTypeID", "TypeName");
@@ -317,7 +317,7 @@ namespace FrontEnd.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "AUH\\Heimdall_admin")]
+        //[Authorize(Roles = "AUH\\Heimdall_admin")]
         public ActionResult Create(tbl_Clients tbl_clients)
         {
             if (ModelState.IsValid)
